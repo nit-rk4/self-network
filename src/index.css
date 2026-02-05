@@ -1,68 +1,40 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+/* Pixel font */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
+:root{
+  --bg: #071025;      /* deep navy */
+  --panel: #081e33;   /* initial panel */
+  --panel-expanded: #040812; /* expanded panel */
+  --glow: rgba(0,150,255,0.35); /* blue glow */
+  --accent: #66d2ff;  /* blue accent text */
+}
+
+html,body,#root { height: 100%; margin: 0; padding:0; }
+
+body {
+  font-family: 'Press Start 2P', monospace;
+  background: radial-gradient(circle at 20% 10%, #071830 0%, var(--bg) 35%, #03040a 100%);
+  color: var(--accent);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+/* Panel base styles (we'll use Tailwind classes + these extras) */
+.panel {
+  transition: all 700ms cubic-bezier(.2,.9,.2,1);
+  box-shadow: 0 10px 40px var(--glow), inset 0 1px 0 rgba(255,255,255,0.02);
+  backdrop-filter: blur(4px);
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+/* inner node fade */
+@keyframes appear {
+  from { transform: translateY(6px) scale(.98); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
 }
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.inner-node {
+  animation: appear .45s ease forwards;
 }
