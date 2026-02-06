@@ -317,6 +317,415 @@ body {
   will-change: transform, opacity;
 }
 
+/* ─── Abyss Section 3: Impostor / Anxiety effects ─── */
+
+/* Slow anxious pulse for triggering lines */
+@keyframes abyssAnxiousPulse {
+  0%, 100% {
+    opacity: 0.72;
+    transform: scale(1);
+  }
+  30% {
+    opacity: 0.45;
+    transform: scale(0.995);
+  }
+  60% {
+    opacity: 0.82;
+    transform: scale(1.005);
+  }
+}
+
+.abyss-anxious-pulse {
+  animation: abyssAnxiousPulse 4s ease-in-out infinite;
+}
+
+/* Floating shadow blobs — drifting darkness */
+@keyframes abyssShadowFloat {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  30% {
+    transform: translate(12px, -10px) scale(1.1);
+  }
+  50% {
+    transform: translate(-8px, 8px) scale(0.95);
+    opacity: 0.7;
+  }
+  70% {
+    transform: translate(6px, -14px) scale(1.05);
+    opacity: 1;
+  }
+  85% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0;
+  }
+}
+
+.abyss-shadow-blob {
+  animation: abyssShadowFloat 12s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Smoky impostor words — materialize from blur, linger, dissolve */
+@keyframes abyssSmokeWord {
+  0% {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(6px) translateX(0) scale(0.92);
+  }
+  15% {
+    opacity: 1;
+    filter: blur(2px);
+    transform: translateY(0) translateX(3px) scale(1);
+  }
+  30% {
+    opacity: 0.9;
+    filter: blur(1px);
+    transform: translateY(-4px) translateX(-2px) scale(1.02);
+  }
+  50% {
+    opacity: 0.7;
+    filter: blur(2px);
+    transform: translateY(2px) translateX(5px) scale(0.98);
+  }
+  70% {
+    opacity: 0.5;
+    filter: blur(4px);
+    transform: translateY(-3px) translateX(-4px) scale(1.01);
+  }
+  85% {
+    opacity: 0.2;
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(6px) translateX(0) scale(0.92);
+  }
+}
+
+.abyss-smoke-word {
+  animation: abyssSmokeWord 14s ease-in-out infinite;
+  will-change: transform, opacity, filter;
+}
+
+/* Deepening vignette subtle breathe */
+@keyframes abyssVignetteBreathe {
+  0%, 100% {
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.abyss-impostor-vignette {
+  animation: abyssVignetteBreathe 6s ease-in-out infinite;
+}
+
+/* Ember glow — warm patient pulse */
+@keyframes abyssEmberPulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  40% {
+    opacity: 0.9;
+    transform: scale(1.15);
+  }
+  70% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+.abyss-ember-core {
+  animation: abyssEmberPulse 3.5s ease-in-out infinite;
+}
+
+@keyframes abyssEmberHalo {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+.abyss-ember-halo {
+  animation: abyssEmberHalo 5s ease-in-out infinite;
+}
+
+/* Ember line warm text glow */
+@keyframes abyssEmberLineGlow {
+  0%, 100% {
+    text-shadow: 0 0 14px rgba(255,160,60,0.35), 0 0 30px rgba(255,120,40,0.15);
+    color: rgba(200,165,130,0.82);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(255,160,60,0.5), 0 0 45px rgba(255,120,40,0.25);
+    color: rgba(210,175,140,0.88);
+  }
+}
+
+.abyss-ember-line {
+  animation: abyssEmberLineGlow 4s ease-in-out infinite;
+}
+
+/* ─── Abyss Section 4: Reflection / Self-awareness effects ─── */
+
+/* Rising hope particles — float gently upward */
+@keyframes abyssHopeRise {
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+    transform: translateY(-5vh) scale(1);
+  }
+  40% {
+    transform: translateY(-35vh) translateX(6px) scale(0.9);
+    opacity: 0.5;
+  }
+  70% {
+    transform: translateY(-65vh) translateX(-4px) scale(0.7);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-105vh) translateX(2px) scale(0.4);
+    opacity: 0;
+  }
+}
+
+.abyss-hope-particle {
+  animation: abyssHopeRise 10s ease-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Gentle breathing center glow */
+@keyframes abyssReflectionGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+.abyss-reflection-glow {
+  animation: abyssReflectionGlow 8s ease-in-out infinite;
+}
+
+/* Firefly sparks — slow wander and pulse */
+@keyframes abyssFirefly {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.5);
+  }
+  15% {
+    opacity: 0.7;
+    transform: translate(8px, -12px) scale(1);
+  }
+  35% {
+    opacity: 0.4;
+    transform: translate(-14px, -6px) scale(0.8);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(6px, 10px) scale(1.1);
+  }
+  65% {
+    opacity: 0.3;
+    transform: translate(-10px, 8px) scale(0.7);
+  }
+  80% {
+    opacity: 0.6;
+    transform: translate(12px, -4px) scale(0.9);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.5);
+  }
+}
+
+.abyss-firefly {
+  animation: abyssFirefly 8s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Reflection words — gentle fade-in, linger, fade-out (like thoughts surfacing) */
+@keyframes abyssReflectionWord {
+  0% {
+    opacity: 0;
+    transform: translateY(4px) scale(0.96);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  45% {
+    opacity: 0.8;
+    transform: translateY(-2px) scale(1.01);
+  }
+  70% {
+    opacity: 0.6;
+    transform: translateY(1px) scale(0.99);
+  }
+  90% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(4px) scale(0.96);
+  }
+}
+
+.abyss-reflection-word {
+  animation: abyssReflectionWord 16s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Clarity line — gentle soft-glow breathe for key reflection lines */
+@keyframes abyssClarityGlow {
+  0%, 100% {
+    text-shadow: 0 0 16px rgba(200,190,240,0.3), 0 0 35px rgba(180,170,230,0.12);
+    color: rgba(185,175,220,0.82);
+  }
+  50% {
+    text-shadow: 0 0 22px rgba(200,190,240,0.45), 0 0 50px rgba(180,170,230,0.2);
+    color: rgba(195,185,230,0.88);
+  }
+}
+
+.abyss-clarity-line {
+  animation: abyssClarityGlow 5s ease-in-out infinite;
+}
+
+/* ─── Abyss Section 5: Acceptance / Healing effects ─── */
+
+/* Drifting petals — gentle falling with sway */
+@keyframes abyssPetalDrift {
+  0% {
+    transform: translateY(0) translateX(0) rotate(var(--petal-start, 0deg)) scale(0.7);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.8;
+  }
+  25% {
+    transform: translateY(28vh) translateX(20px) rotate(calc(var(--petal-start, 0deg) + 40deg)) scale(1);
+  }
+  50% {
+    transform: translateY(55vh) translateX(-15px) rotate(calc(var(--petal-start, 0deg) + 90deg)) scale(0.9);
+    opacity: 0.5;
+  }
+  75% {
+    transform: translateY(80vh) translateX(10px) rotate(calc(var(--petal-start, 0deg) + 130deg)) scale(0.75);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(110vh) translateX(-8px) rotate(calc(var(--petal-start, 0deg) + 180deg)) scale(0.5);
+    opacity: 0;
+  }
+}
+
+.abyss-petal {
+  --petal-start: 0deg;
+  animation: abyssPetalDrift 14s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Warm breathing acceptance glow */
+@keyframes abyssAcceptanceGlow {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+}
+
+.abyss-acceptance-glow {
+  animation: abyssAcceptanceGlow 7s ease-in-out infinite;
+}
+
+/* Light motes — rise gently upward, brighter than S4 particles */
+@keyframes abyssLightMoteRise {
+  0% {
+    transform: translateY(0) scale(0.5);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.9;
+    transform: translateY(-8vh) scale(1);
+  }
+  35% {
+    transform: translateY(-30vh) translateX(8px) scale(0.85);
+    opacity: 0.6;
+  }
+  60% {
+    transform: translateY(-55vh) translateX(-6px) scale(0.7);
+    opacity: 0.4;
+  }
+  85% {
+    transform: translateY(-80vh) translateX(4px) scale(0.5);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateY(-110vh) translateX(-2px) scale(0.3);
+    opacity: 0;
+  }
+}
+
+.abyss-light-mote {
+  animation: abyssLightMoteRise 9s ease-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Finale line — steady warm glow breathe */
+@keyframes abyssFinaleGlow {
+  0%, 100% {
+    text-shadow: 0 0 20px rgba(220,210,250,0.4), 0 0 50px rgba(200,190,240,0.18);
+    color: rgba(215,205,245,0.88);
+  }
+  50% {
+    text-shadow: 0 0 28px rgba(220,210,250,0.55), 0 0 65px rgba(200,190,240,0.28);
+    color: rgba(225,215,250,0.94);
+  }
+}
+
+.abyss-finale-line {
+  animation: abyssFinaleGlow 5s ease-in-out infinite;
+}
+
+/* End-of-abyss text subtle pulse */
+@keyframes abyssEndingPulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.abyss-ending-text {
+  animation: abyssEndingPulse 6s ease-in-out infinite;
+}
+
 /* ─── Mobile-first responsive adjustments ─── */
 
 @media (max-width: 768px) {
