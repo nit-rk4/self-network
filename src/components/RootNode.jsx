@@ -43,7 +43,7 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          opacity: expanded ? 1 : 0,
+          opacity: expanded ? 0.3 : 0,
           transition: expanded ? "opacity 1s ease-in" : "opacity 0.2s ease-out",
           zIndex: 20,
           pointerEvents: "none",
@@ -51,101 +51,101 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
       />
 
       {/* Lines going to/from the main node - ONLY when NOT expanded */}
-{/* Lines going to/from the main node - ONLY when NOT expanded */}
-{!expanded && (
-  <svg
-    viewBox="0 0 100 100"
-    preserveAspectRatio="none"
-    style={{
-      position: "fixed",
-      inset: 0,
-      width: "100vw",
-      height: "100vh",
-      pointerEvents: "none",
-      zIndex: 39,
-    }}
-  >
-    {/* Lines going UP from TOP PORT */}
-    {[
-      { x: -18, opacity: 0.7, width: 0.6 },
-      { x: -8, opacity: 0.9, width: 0.8 },
-      { x: 2, opacity: 0.6, width: 0.5 },
-      { x: 10, opacity: 1, width: 0.9 },
-      { x: 20, opacity: 0.75, width: 0.7 },
-      { x: -12, opacity: 0.5, width: 0.4 },
-    ].map((line, i) => {
-      const targetX = 50 + line.x;
-      const controlX = targetX; // Keep it straight horizontally
-      const controlY = -15; // NEGATIVE - goes ABOVE screen to create outward bulge!
-      
-      return (
-        <g key={`top-${i}`} opacity={line.opacity}>
-          {/* Outer glow layer */}
-          <path
-            d={`M 50 32.5 Q ${controlX} ${controlY}, ${targetX} 0`}
-            fill="none"
-            stroke="rgba(102,210,255,0.3)"
-            strokeWidth={line.width * 1.2}
-          />
-          {/* Main line */}
-          <path
-            d={`M 50 32.5 Q ${controlX} ${controlY}, ${targetX} 0`}
-            fill="none"
-            stroke="rgba(102,210,255,0.9)"
-            strokeWidth={line.width * 0.4}
-          />
-          {/* Bright core */}
-          <path
-            d={`M 50 32.5 Q ${controlX} ${controlY}, ${targetX} 0`}
-            fill="none"
-            stroke="rgba(200,240,255,1)"
-            strokeWidth={line.width * 0.2}
-          />
-        </g>
-      );
-    })}
+      {!expanded && (
+        <svg
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          style={{
+            position: "fixed",
+            inset: 0,
+            width: "100vw",
+            height: "100vh",
+            pointerEvents: "none",
+            zIndex: 39,
+          }}
+        >
+          {/* Lines going UP from TOP PORT */}
+          {[
+            { x: -18, opacity: 0.7, width: 0.6 },
+            { x: -8, opacity: 0.9, width: 0.8 },
+            { x: 2, opacity: 0.6, width: 0.5 },
+            { x: 10, opacity: 1, width: 0.9 },
+            { x: 20, opacity: 0.75, width: 0.7 },
+            { x: -12, opacity: 0.5, width: 0.4 },
+          ].map((line, i) => {
+            const targetX = 50 + line.x;
+            const controlX = targetX; 
+            const controlY = -15; 
+            
+            return (
+              <g key={`top-${i}`} opacity={line.opacity}>
+                {/* Outer glow layer */}
+                <path
+                  d={`M 50 32.5 Q ${controlX} ${controlY}, ${targetX} 0`}
+                  fill="none"
+                  stroke="rgba(102,210,255,0.3)"
+                  strokeWidth={line.width * 1.2}
+                />
+                {/* Main line */}
+                <path
+                  d={`M 50 32.5 Q ${controlX} ${controlY}, ${targetX} 0`}
+                  fill="none"
+                  stroke="rgba(102,210,255,0.9)"
+                  strokeWidth={line.width * 0.4}
+                />
+                {/* Bright core */}
+                <path
+                  d={`M 50 32.5 Q ${controlX} ${controlY}, ${targetX} 0`}
+                  fill="none"
+                  stroke="rgba(200,240,255,1)"
+                  strokeWidth={line.width * 0.2}
+                />
+              </g>
+            );
+          })}
 
-    {/* Lines going DOWN from BOTTOM PORT */}
-    {[
-      { x: -16, opacity: 0.8, width: 0.7 },
-      { x: -6, opacity: 0.6, width: 0.5 },
-      { x: 4, opacity: 0.9, width: 0.85 },
-      { x: 12, opacity: 1, width: 0.9 },
-      { x: 18, opacity: 0.65, width: 0.6 },
-      { x: -10, opacity: 0.55, width: 0.45 },
-    ].map((line, i) => {
-      const targetX = 50 + line.x;
-      const controlX = targetX; // Keep it straight horizontally
-      const controlY = 115; // BEYOND 100 - goes BELOW screen to create outward bulge!
-      
-      return (
-        <g key={`bottom-${i}`} opacity={line.opacity}>
-          {/* Outer glow layer */}
-          <path
-            d={`M 50 67.5 Q ${controlX} ${controlY}, ${targetX} 100`}
-            fill="none"
-            stroke="rgba(102,210,255,0.3)"
-            strokeWidth={line.width * 1.2}
-          />
-          {/* Main line */}
-          <path
-            d={`M 50 67.5 Q ${controlX} ${controlY}, ${targetX} 100`}
-            fill="none"
-            stroke="rgba(102,210,255,0.9)"
-            strokeWidth={line.width * 0.4}
-          />
-          {/* Bright core */}
-          <path
-            d={`M 50 67.5 Q ${controlX} ${controlY}, ${targetX} 100`}
-            fill="none"
-            stroke="rgba(200,240,255,1)"
-            strokeWidth={line.width * 0.2}
-          />
-        </g>
-      );
-    })}
-  </svg>
-)}
+          {/* Lines going DOWN from BOTTOM PORT */}
+          {[
+            { x: -16, opacity: 0.8, width: 0.7 },
+            { x: -6, opacity: 0.6, width: 0.5 },
+            { x: 4, opacity: 0.9, width: 0.85 },
+            { x: 12, opacity: 1, width: 0.9 },
+            { x: 18, opacity: 0.65, width: 0.6 },
+            { x: -10, opacity: 0.55, width: 0.45 },
+          ].map((line, i) => {
+            const targetX = 50 + line.x;
+            const controlX = targetX; // Keep it straight horizontally
+            const controlY = 115; // BEYOND 100 - goes BELOW screen to create outward bulge!
+            
+            return (
+              <g key={`bottom-${i}`} opacity={line.opacity}>
+                {/* Outer glow layer */}
+                <path
+                  d={`M 50 67.5 Q ${controlX} ${controlY}, ${targetX} 100`}
+                  fill="none"
+                  stroke="rgba(102,210,255,0.3)"
+                  strokeWidth={line.width * 1.2}
+                />
+                {/* Main line */}
+                <path
+                  d={`M 50 67.5 Q ${controlX} ${controlY}, ${targetX} 100`}
+                  fill="none"
+                  stroke="rgba(102,210,255,0.9)"
+                  strokeWidth={line.width * 0.4}
+                />
+                {/* Bright core */}
+                <path
+                  d={`M 50 67.5 Q ${controlX} ${controlY}, ${targetX} 100`}
+                  fill="none"
+                  stroke="rgba(200,240,255,1)"
+                  strokeWidth={line.width * 0.2}
+                />
+              </g>
+            );
+          })}
+        </svg>
+      )}
+
       {/* Back arrow button - only shows when expanded */}
       {expanded && (
         <>

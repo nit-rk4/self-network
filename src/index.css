@@ -100,3 +100,13 @@ body {
   opacity: 0;
   pointer-events: none;
 }
+
+/* Blinking words animation */
+@keyframes blink {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}

@@ -1,4 +1,5 @@
 import { useMemo, useRef, useEffect, useCallback, forwardRef } from "react";
+import BlinkingWords from "./BlinkingWords";
 
 const InnerNode = forwardRef(({ label, delay, onClick }, ref) => (
   <button
@@ -38,7 +39,6 @@ export default function InnerNodes({ nodes, onNodeClick }) {
   const simRef = useRef(null);
   const rafRef = useRef(null);
 
-  // Build initial positions + velocities once
   const initData = useMemo(() => {
     const margin = 12;
     const minDistance = 18;
@@ -73,7 +73,6 @@ export default function InnerNodes({ nodes, onNodeClick }) {
       };
     });
 
-    // Pre-generate connection pairs (indices)
     const connPairs = [];
     particles.forEach((_, i) => {
       const count = 2 + Math.floor(Math.random() * 2);
@@ -86,12 +85,10 @@ export default function InnerNodes({ nodes, onNodeClick }) {
     return { particles, connPairs };
   }, [nodes.length]);
 
-  // Animation loop — direct DOM mutation, no React state
   const animate = useCallback(() => {
     const { particles, connPairs } = simRef.current;
     const margin = 5;
 
-    // Move particles
     for (const p of particles) {
       p.x += p.vx;
       p.y += p.vy;
@@ -102,7 +99,6 @@ export default function InnerNodes({ nodes, onNodeClick }) {
       if (p.y > 100 - margin) { p.y = 100 - margin; p.vy *= -1; }
     }
 
-    // Update DOM nodes
     particles.forEach((p, i) => {
       const el = nodeRefs.current[i];
       if (el) {
@@ -111,7 +107,6 @@ export default function InnerNodes({ nodes, onNodeClick }) {
       }
     });
 
-    // Update SVG lines
     const svg = svgRef.current;
     if (svg) {
       const lines = svg.querySelectorAll("line");
@@ -154,6 +149,9 @@ export default function InnerNodes({ nodes, onNodeClick }) {
       onClick={(e) => e.stopPropagation()}
       style={{ position: "absolute", inset: 0, overflow: "hidden" }}
     >
+      {/* Blinking words background */}
+      <BlinkingWords />
+
       {/* SVG layer for connection lines */}
       <svg
         ref={svgRef}
