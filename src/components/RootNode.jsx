@@ -1,13 +1,18 @@
 import { useState } from "react";
 import { FiArrowLeft } from "react-icons/fi";
 import InnerNodes from "./InnerNodes";
+import IdentityOverlay from "./IdentityOverlay";
 
 export default function RootNode({ label, childrenNodes = [], outerBgGif, innerBgGif }) {
   const [expanded, setExpanded] = useState(false);
 
+  const [activeNode, setActiveNode] = useState(null);
+
   const handleNodeClick = (node) => {
-    alert(`${node.label}\n\n(Replace this with your journal content)`);
+    setActiveNode(node.label);
   };
+
+  const closeOverlay = () => setActiveNode(null);
 
   return (
     <>
@@ -310,9 +315,24 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
                   color: "var(--accent)",
                   letterSpacing: "0.08em",
                   textShadow: "0 4px 12px rgba(0,150,255,0.08)",
+                  marginBottom: 8,
                 }}
+                className="pixel-text"
               >
                 {label}
+              </div>
+              <div
+                style={{
+                  fontSize: 18,
+                  color: "rgba(102,210,255,0.85)",
+                  fontWeight: 500,
+                  letterSpacing: "0.03em",
+                  textShadow: "0 2px 8px rgba(0,150,255,0.10)",
+                  opacity: 0.92,
+                  userSelect: "none",
+                }}
+              >
+                &lt; click to view their inner self &gt;
               </div>
             </div>
           )}
@@ -323,6 +343,9 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
           )}
         </div>
       </div>
+
+      {/* Node overlays */}
+      {activeNode === "IDENTITY" && <IdentityOverlay onClose={closeOverlay} />}
     </>
   );
 }

@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Pixel font */
+/* Smooth body font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+/* Pixelated heading font */
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 :root{
@@ -16,11 +18,15 @@
 html,body,#root { height: 100%; margin: 0; padding:0; }
 
 body {
-  font-family: 'Press Start 2P', monospace;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   background: radial-gradient(circle at 20% 10%, #071830 0%, var(--bg) 35%, #03040a 100%);
   color: var(--accent);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.pixel-text {
+  font-family: 'Press Start 2P', monospace;
 }
 
 /* Panel base styles (we'll use Tailwind classes + these extras) */
@@ -32,9 +38,65 @@ body {
 
 /* inner node fade */
 @keyframes appear {
-  from { transform: translateY(6px) scale(.98); opacity: 0; }
-  to { transform: translateY(0) scale(1); opacity: 1; }
+  from { transform: translate(-50%,-50%) translateY(6px) scale(.98); opacity: 0; }
+  to { transform: translate(-50%,-50%) translateY(0) scale(1); opacity: 1; }
 }
+
 .inner-node {
   animation: appear .45s ease forwards;
+  animation-delay: var(--delay);
+}
+
+/* Overlay backdrop */
+.overlay-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(4, 8, 18, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+/* Overlay panel - doesn't fill the whole screen */
+.overlay-panel {
+  width: 70vw;
+  max-width: 900px;
+  max-height: 75vh;
+  background: linear-gradient(180deg, #0a1e30 0%, #081828 100%);
+  border: 1px solid rgba(102, 210, 255, 0.2);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow:
+    0 0 40px rgba(0, 150, 255, 0.15),
+    0 20px 60px rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+  animation: overlaySlideIn 0.35s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes overlaySlideIn {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Full-screen containers for password / title screens */
+.screen-container {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: radial-gradient(circle at 20% 10%, #071830 0%, #071025 35%, #03040a 100%);
+  opacity: 1;
+  transition: opacity 0.8s ease;
+}
+
+.screen-container.fade-out {
+  opacity: 0;
+  pointer-events: none;
 }
