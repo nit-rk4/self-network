@@ -19,157 +19,33 @@ const gratefulItems = [
   "Small joys",
 ];
 
-/* ── radial layout helper ───────────────────────────── */
+/* ── SVG leaf shape ─────────────────────────────────── */
 
-function layoutRadial(items, cx, cy, rx, ry) {
-  return items.map((text, i) => {
-    const angle = (i / items.length) * Math.PI * 2 - Math.PI / 2;
-    return {
-      text,
-      x: cx + Math.cos(angle) * rx,
-      y: cy + Math.sin(angle) * ry,
-    };
-  });
-}
-
-/* ── Mini-network sub-graph ─────────────────────────── */
-
-function MiniNetwork({ title, items, cx, cy, rx, ry, color, hovered, onHover, onLeave }) {
-  const nodes = useMemo(() => layoutRadial(items, cx, cy, rx, ry), [items, cx, cy, rx, ry]);
-
+function Leaf({ x, y, size = 8, angle = 0, color, opacity = 0.25 }) {
   return (
-    <g>
-      {/* Lines from hub to each satellite — only visible on hover */}
-      {nodes.map((n, i) => (
-        <line
-          key={`line-${i}`}
-          x1={cx}
-          y1={cy}
-          x2={hovered ? n.x : cx}
-          y2={hovered ? n.y : cy}
-          stroke={`rgba(${color},0.25)`}
-          strokeWidth={1.5}
-          style={{
-            filter: `drop-shadow(0 0 4px rgba(${color},0.15))`,
-            transition: "x2 0.5s ease, y2 0.5s ease, opacity 0.4s ease",
-            transitionDelay: `${i * 0.04}s`,
-            opacity: hovered ? 1 : 0,
-          }}
-        />
-      ))}
-
-      {/* Satellite nodes — only visible on hover */}
-      {nodes.map((n, i) => {
-        const pillW = Math.max(n.text.length * 8.5 + 28, 90);
-        const pillH = 34;
-        return (
-          <g
-            key={`node-${i}`}
-            style={{
-              transform: hovered
-                ? `translate(0, 0)`
-                : `translate(${cx - n.x}px, ${cy - n.y}px)`,
-              opacity: hovered ? 1 : 0,
-              transition: `transform 0.5s cubic-bezier(.2,.9,.3,1) ${i * 0.04}s, opacity 0.4s ease ${i * 0.04}s`,
-            }}
-          >
-            <rect
-              x={n.x - pillW / 2}
-              y={n.y - pillH / 2}
-              width={pillW}
-              height={pillH}
-              rx={pillH / 2}
-              ry={pillH / 2}
-              fill="#0a1e30"
-              stroke={`rgba(${color},0.22)`}
-              strokeWidth={1}
-              style={{ filter: `drop-shadow(0 0 8px rgba(${color},0.12))` }}
-            />
-            <text
-              x={n.x}
-              y={n.y}
-              textAnchor="middle"
-              dominantBaseline="central"
-              fill={`rgba(${color},0.85)`}
-              fontSize={12}
-              fontWeight={600}
-              style={{ pointerEvents: "none" }}
-            >
-              {n.text}
-            </text>
-          </g>
-        );
-      })}
-
-      {/* Hub node — solid fill, always visible, on top */}
-      <circle
-        cx={cx}
-        cy={cy}
-        r={58}
-        fill="#0a1e30"
-        stroke={`rgba(${color},${hovered ? 0.7 : 0.35})`}
-        strokeWidth={hovered ? 2 : 1.5}
-        style={{
-          filter: `drop-shadow(0 0 ${hovered ? 24 : 12}px rgba(${color},${hovered ? 0.35 : 0.15}))`,
-          cursor: "pointer",
-          transition: "stroke 0.3s ease, stroke-width 0.3s ease, filter 0.3s ease",
-        }}
-        onMouseEnter={onHover}
-        onMouseLeave={onLeave}
+    <g transform={`translate(${x},${y}) rotate(${angle})`}>
+      <path
+        d={`M 0 0 Q ${size} ${-size * 0.6}, ${size * 1.6} 0 Q ${size} ${size * 0.6}, 0 0`}
+        fill={`rgba(${color},${opacity})`}
+        stroke={`rgba(${color},${opacity + 0.1})`}
+        strokeWidth={0.5}
       />
-      {/* Hub label */}
-      <text
-        x={cx}
-        y={cy}
-        textAnchor="middle"
-        dominantBaseline="central"
-        fill={`rgb(${color})`}
-        fontSize={9}
-        fontWeight={800}
-        fontFamily="'Press Start 2P', monospace"
-        letterSpacing="0.04em"
-        style={{ pointerEvents: "none" }}
-      >
-        {title.split("\n").map((line, i, arr) => (
-          <tspan key={i} x={cx} dy={i === 0 ? `${-(arr.length - 1) * 0.6}em` : "1.3em"}>
-            {line}
-          </tspan>
-        ))}
-      </text>
-
-      {/* Hint text under hub — only when NOT hovered */}
-      <text
-        x={cx}
-        y={cy + 72}
-        textAnchor="middle"
-        fill={`rgba(${color},0.3)`}
-        fontSize={10}
-        fontStyle="italic"
-        style={{
-          opacity: hovered ? 0 : 1,
-          transition: "opacity 0.3s ease",
-          pointerEvents: "none",
-        }}
-      >
-        hover to explore
-      </text>
     </g>
   );
 }
 
-/* ── Floating particle dots for atmosphere ──────────── */
+/* ── Floating particles (pollen / light) ────────────── */
 
-function FloatingDots({ count = 30, color }) {
-  const dots = useMemo(() => {
-    return Array.from({ length: count }, (_, i) => ({
-      cx: Math.random() * 100,
-      cy: Math.random() * 100,
-      r: 1 + Math.random() * 1.5,
-      delay: Math.random() * 4,
-      duration: 3 + Math.random() * 3,
+function FloatingParticles({ count = 25, color }) {
+  const dots = useMemo(() =>
+    Array.from({ length: count }, (_, i) => ({
+      cx: 10 + Math.random() * 80,
+      cy: 5 + Math.random() * 85,
+      r: 0.8 + Math.random() * 1.2,
+      delay: Math.random() * 5,
+      duration: 3 + Math.random() * 4,
       key: i,
-    }));
-  }, [count]);
+    })), [count]);
 
   return (
     <>
@@ -179,9 +55,9 @@ function FloatingDots({ count = 30, color }) {
           cx={`${d.cx}%`}
           cy={`${d.cy}%`}
           r={d.r}
-          fill={`rgba(${color},0.15)`}
+          fill={`rgba(${color},0.12)`}
           style={{
-            animation: `growthDotPulse ${d.duration}s ease-in-out ${d.delay}s infinite`,
+            animation: `growthFloat ${d.duration}s ease-in-out ${d.delay}s infinite`,
           }}
         />
       ))}
@@ -189,21 +65,215 @@ function FloatingDots({ count = 30, color }) {
   );
 }
 
+/* ── Decorative leaves along the trunk & branches ───── */
+
+function DecoLeaves({ color }) {
+  const leaves = useMemo(() => [
+    // Along trunk
+    { x: 404, y: 520, angle: 30, size: 7 },
+    { x: 396, y: 470, angle: -40, size: 6 },
+    { x: 405, y: 430, angle: 25, size: 8 },
+    { x: 393, y: 390, angle: -30, size: 6 },
+    // Along left branch
+    { x: 355, y: 310, angle: -50, size: 7 },
+    { x: 300, y: 270, angle: -60, size: 6 },
+    { x: 245, y: 235, angle: -40, size: 8 },
+    // Along right branch
+    { x: 445, y: 310, angle: 40, size: 7 },
+    { x: 500, y: 275, angle: 55, size: 6 },
+    { x: 555, y: 240, angle: 50, size: 8 },
+  ], []);
+
+  return (
+    <>
+      {leaves.map((l, i) => (
+        <Leaf key={i} {...l} color={color} opacity={0.18} />
+      ))}
+    </>
+  );
+}
+
+/* ── Bud node at end of a sub-branch ────────────────── */
+
+function Bud({ x, y, text, color, visible, delay = 0 }) {
+  const pillW = Math.max(text.length * 8 + 32, 85);
+  const pillH = 30;
+  const budR = 6;
+
+  return (
+    <g>
+      {/* Closed bud (always visible, small circle) */}
+      <circle
+        cx={x}
+        cy={y}
+        r={budR}
+        fill={visible ? `rgba(${color},0.15)` : `rgba(${color},0.25)`}
+        stroke={`rgba(${color},${visible ? 0.5 : 0.35})`}
+        strokeWidth={1.2}
+        style={{
+          transition: `r 0.4s ease ${delay}s, fill 0.3s ease ${delay}s`,
+          filter: `drop-shadow(0 0 4px rgba(${color},0.2))`,
+        }}
+      />
+
+      {/* Bloomed state — pill with text */}
+      <g
+        style={{
+          opacity: visible ? 1 : 0,
+          transform: visible ? "scale(1)" : "scale(0.3)",
+          transformOrigin: `${x}px ${y}px`,
+          transition: `opacity 0.4s ease ${delay}s, transform 0.45s cubic-bezier(.2,.9,.3,1) ${delay}s`,
+        }}
+      >
+        <rect
+          x={x - pillW / 2}
+          y={y - pillH / 2}
+          width={pillW}
+          height={pillH}
+          rx={pillH / 2}
+          ry={pillH / 2}
+          fill="#0b1f2e"
+          stroke={`rgba(${color},0.3)`}
+          strokeWidth={1}
+          style={{ filter: `drop-shadow(0 0 10px rgba(${color},0.15))` }}
+        />
+        <text
+          x={x}
+          y={y}
+          textAnchor="middle"
+          dominantBaseline="central"
+          fill={`rgba(${color},0.9)`}
+          fontSize={11.5}
+          fontWeight={600}
+          style={{ pointerEvents: "none" }}
+        >
+          {text}
+        </text>
+      </g>
+    </g>
+  );
+}
+
+/* ── A branch with sub-branches and buds ────────────── */
+
+function Branch({ label, items, branchPath, budPositions, color, hovered, onHover, onLeave, labelPos, subBranchStart }) {
+  return (
+    <g>
+      {/* Main branch curve */}
+      <path
+        d={branchPath}
+        fill="none"
+        stroke={`rgba(${color},${hovered ? 0.5 : 0.28})`}
+        strokeWidth={hovered ? 3.5 : 3}
+        strokeLinecap="round"
+        style={{
+          filter: `drop-shadow(0 0 6px rgba(${color},${hovered ? 0.25 : 0.1}))`,
+          transition: "stroke 0.3s ease, stroke-width 0.3s ease",
+        }}
+      />
+
+      {/* Sub-branches from branch to each bud */}
+      {budPositions.map((bud, i) => (
+        <line
+          key={`sub-${i}`}
+          x1={bud.branchX}
+          y1={bud.branchY}
+          x2={hovered ? bud.x : bud.branchX}
+          y2={hovered ? bud.y : bud.branchY}
+          stroke={`rgba(${color},${hovered ? 0.25 : 0.12})`}
+          strokeWidth={1.5}
+          strokeLinecap="round"
+          style={{
+            transition: `x2 0.45s ease ${i * 0.05}s, y2 0.45s ease ${i * 0.05}s, stroke 0.3s ease`,
+          }}
+        />
+      ))}
+
+      {/* Buds */}
+      {budPositions.map((bud, i) => (
+        <Bud
+          key={i}
+          x={bud.x}
+          y={bud.y}
+          text={items[i]}
+          color={color}
+          visible={hovered}
+          delay={i * 0.05}
+        />
+      ))}
+
+      {/* Branch label (section title) */}
+      <g
+        style={{ cursor: "pointer" }}
+        onMouseEnter={onHover}
+        onMouseLeave={onLeave}
+      >
+        {/* Solid background behind label */}
+        <circle
+          cx={labelPos.x}
+          cy={labelPos.y}
+          r={52}
+          fill="#0b1f2e"
+          stroke={`rgba(${color},${hovered ? 0.6 : 0.3})`}
+          strokeWidth={hovered ? 2 : 1.5}
+          style={{
+            filter: `drop-shadow(0 0 ${hovered ? 20 : 8}px rgba(${color},${hovered ? 0.3 : 0.12}))`,
+            transition: "stroke 0.3s ease, filter 0.3s ease, stroke-width 0.3s ease",
+          }}
+        />
+        <text
+          x={labelPos.x}
+          y={labelPos.y}
+          textAnchor="middle"
+          dominantBaseline="central"
+          fill={`rgb(${color})`}
+          fontSize={8}
+          fontWeight={800}
+          fontFamily="'Press Start 2P', monospace"
+          letterSpacing="0.03em"
+          style={{ pointerEvents: "none" }}
+        >
+          {label.split("\n").map((line, i, arr) => (
+            <tspan key={i} x={labelPos.x} dy={i === 0 ? `${-(arr.length - 1) * 0.6}em` : "1.3em"}>
+              {line}
+            </tspan>
+          ))}
+        </text>
+        {/* Hover hint */}
+        <text
+          x={labelPos.x}
+          y={labelPos.y + 62}
+          textAnchor="middle"
+          fill={`rgba(${color},0.25)`}
+          fontSize={9}
+          fontStyle="italic"
+          style={{
+            opacity: hovered ? 0 : 1,
+            transition: "opacity 0.3s ease",
+            pointerEvents: "none",
+          }}
+        >
+          hover to bloom
+        </text>
+      </g>
+    </g>
+  );
+}
+
 /* ── Main overlay ───────────────────────────────────── */
 
 export default function GrowthOverlay({ onClose }) {
-  const [activeHub, setActiveHub] = useState(null); // "left" | "right" | null
+  const [activeHub, setActiveHub] = useState(null);
 
-  /* pulse animation keyframes (injected once) */
   useEffect(() => {
-    const id = "growth-dot-keyframes";
+    const id = "growth-plant-keyframes";
     if (document.getElementById(id)) return;
     const style = document.createElement("style");
     style.id = id;
     style.textContent = `
-      @keyframes growthDotPulse {
-        0%, 100% { opacity: 0.15; }
-        50%      { opacity: 0.5;  }
+      @keyframes growthFloat {
+        0%, 100% { opacity: 0.1; transform: translateY(0); }
+        50%      { opacity: 0.4; transform: translateY(-3px); }
       }
     `;
     document.head.appendChild(style);
@@ -213,30 +283,68 @@ export default function GrowthOverlay({ onClose }) {
     };
   }, []);
 
-  /*
-    Stacked vertically so the two clusters never overlap.
-    Top cluster at (450, 180), bottom at (450, 460).
-  */
-  const svgW = 900;
-  const svgH = 640;
-  const topCx = 450, topCy = 180;
-  const botCx = 450, botCy = 460;
-  const radiusX = 200, radiusY = 130;
+  const svgW = 800;
+  const svgH = 620;
+
+  // Trunk: bottom center up to fork
+  const trunkBase = { x: 400, y: 590 };
+  const forkPt = { x: 400, y: 340 };
+
+  // Left branch (improve): curves to upper-left
+  const leftLabel = { x: 220, y: 200 };
+  const leftBranchPath = `M ${forkPt.x} ${forkPt.y} C 380 280, 300 230, ${leftLabel.x} ${leftLabel.y}`;
+
+  // Right branch (grateful): curves to upper-right
+  const rightLabel = { x: 580, y: 200 };
+  const rightBranchPath = `M ${forkPt.x} ${forkPt.y} C 420 280, 500 230, ${rightLabel.x} ${rightLabel.y}`;
+
+  // Bud positions for left branch (improve) — spread around left label
+  const leftBuds = useMemo(() => {
+    const cx = leftLabel.x, cy = leftLabel.y;
+    const angles = [-110, -160, -210, -50, -10, 30]; // degrees, spread around upper-left
+    return improveItems.map((_, i) => {
+      const a = (angles[i] * Math.PI) / 180;
+      const dist = 110 + (i % 2) * 20;
+      // Point on branch curve to anchor sub-branch (approximate)
+      const t = 0.6 + i * 0.06;
+      return {
+        x: cx + Math.cos(a) * dist,
+        y: cy + Math.sin(a) * dist,
+        branchX: cx + Math.cos(a) * 52,
+        branchY: cy + Math.sin(a) * 52,
+      };
+    });
+  }, []);
+
+  // Bud positions for right branch (grateful) — spread around right label
+  const rightBuds = useMemo(() => {
+    const cx = rightLabel.x, cy = rightLabel.y;
+    const angles = [-70, -20, 30, -130]; // degrees
+    return gratefulItems.map((_, i) => {
+      const a = (angles[i] * Math.PI) / 180;
+      const dist = 110 + (i % 2) * 15;
+      return {
+        x: cx + Math.cos(a) * dist,
+        y: cy + Math.sin(a) * dist,
+        branchX: cx + Math.cos(a) * 52,
+        branchY: cy + Math.sin(a) * 52,
+      };
+    });
+  }, []);
 
   return (
     <NodeOverlay title="GROWTH" onClose={onClose} color={GROWTH_COLOR}>
       <div style={{ position: "relative", width: "100%", height: "100%" }}>
-        {/* Subtle prompt */}
         <p
           style={{
             textAlign: "center",
             fontSize: 13,
-            color: `rgba(${GROWTH_COLOR},0.5)`,
-            marginBottom: 12,
+            color: `rgba(${GROWTH_COLOR},0.45)`,
+            marginBottom: 8,
             fontStyle: "italic",
           }}
         >
-          A map of where I've been and where I'm headed.
+          A living map of where I've been and where I'm growing.
         </p>
 
         <svg
@@ -244,51 +352,85 @@ export default function GrowthOverlay({ onClose }) {
           style={{
             width: "100%",
             height: "auto",
-            maxHeight: "58vh",
+            maxHeight: "60vh",
             display: "block",
             margin: "0 auto",
           }}
         >
-          {/* Atmospheric dots */}
-          <FloatingDots count={35} color={GROWTH_COLOR} />
+          {/* Atmospheric particles */}
+          <FloatingParticles count={30} color={GROWTH_COLOR} />
 
-          {/* Dashed line connecting the two hubs */}
-          <line
-            x1={topCx}
-            y1={topCy + 58}
-            x2={botCx}
-            y2={botCy - 58}
+          {/* ── Roots ── */}
+          {[
+            `M ${trunkBase.x} ${trunkBase.y} Q 370 610, 340 620`,
+            `M ${trunkBase.x} ${trunkBase.y} Q 420 608, 450 618`,
+            `M ${trunkBase.x} ${trunkBase.y} Q 385 612, 360 615`,
+            `M ${trunkBase.x} ${trunkBase.y} Q 415 614, 440 612`,
+          ].map((d, i) => (
+            <path
+              key={`root-${i}`}
+              d={d}
+              fill="none"
+              stroke={`rgba(${GROWTH_COLOR},0.15)`}
+              strokeWidth={2 - i * 0.3}
+              strokeLinecap="round"
+            />
+          ))}
+
+          {/* ── Main trunk ── */}
+          <path
+            d={`M ${trunkBase.x} ${trunkBase.y} C 398 500, 402 420, ${forkPt.x} ${forkPt.y}`}
+            fill="none"
+            stroke={`rgba(${GROWTH_COLOR},0.35)`}
+            strokeWidth={5}
+            strokeLinecap="round"
+            style={{ filter: `drop-shadow(0 0 8px rgba(${GROWTH_COLOR},0.12))` }}
+          />
+          {/* Trunk inner glow */}
+          <path
+            d={`M ${trunkBase.x} ${trunkBase.y} C 398 500, 402 420, ${forkPt.x} ${forkPt.y}`}
+            fill="none"
             stroke={`rgba(${GROWTH_COLOR},0.12)`}
-            strokeWidth={1}
-            strokeDasharray="6 4"
+            strokeWidth={8}
+            strokeLinecap="round"
           />
 
-          {/* Top cluster – Things I can improve on */}
-          <MiniNetwork
-            title={"THINGS I CAN\nIMPROVE ON"}
+          {/* ── Decorative leaves ── */}
+          <DecoLeaves color={GROWTH_COLOR} />
+
+          {/* ── Left branch (improve) ── */}
+          <Branch
+            label={"THINGS I CAN\nIMPROVE ON"}
             items={improveItems}
-            cx={topCx}
-            cy={topCy}
-            rx={radiusX}
-            ry={radiusY}
+            branchPath={leftBranchPath}
+            budPositions={leftBuds}
             color={GROWTH_COLOR}
-            hovered={activeHub === "top"}
-            onHover={() => setActiveHub("top")}
+            hovered={activeHub === "left"}
+            onHover={() => setActiveHub("left")}
             onLeave={() => setActiveHub(null)}
+            labelPos={leftLabel}
           />
 
-          {/* Bottom cluster – Things I'm grateful for */}
-          <MiniNetwork
-            title={"THINGS I'M\nGRATEFUL FOR"}
+          {/* ── Right branch (grateful) ── */}
+          <Branch
+            label={"THINGS I'M\nGRATEFUL FOR"}
             items={gratefulItems}
-            cx={botCx}
-            cy={botCy}
-            rx={radiusX}
-            ry={radiusY}
+            branchPath={rightBranchPath}
+            budPositions={rightBuds}
             color={GROWTH_COLOR}
-            hovered={activeHub === "bot"}
-            onHover={() => setActiveHub("bot")}
+            hovered={activeHub === "right"}
+            onHover={() => setActiveHub("right")}
             onLeave={() => setActiveHub(null)}
+            labelPos={rightLabel}
+          />
+
+          {/* ── Fork node (small glow at junction) ── */}
+          <circle
+            cx={forkPt.x}
+            cy={forkPt.y}
+            r={5}
+            fill={`rgba(${GROWTH_COLOR},0.3)`}
+            style={{ filter: `drop-shadow(0 0 8px rgba(${GROWTH_COLOR},0.25))` }}
           />
         </svg>
       </div>
