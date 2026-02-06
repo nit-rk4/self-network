@@ -91,7 +91,7 @@ export default function GuideScreen({ onClose }) {
             lineHeight: 1.6,
           }}
         >
-          Click on each node to explore a different part of my self-network.
+          Click on each node to explore a different part of my self.
           Here's what you'll find in each one:
         </p>
 
