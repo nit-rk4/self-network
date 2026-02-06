@@ -67,98 +67,100 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
       />
 
       {/* Lines going to/from the main node - ONLY when NOT expanded */}
-        {!expanded && (
+      {!expanded && (
         <svg
-            viewBox="0 0 100 100"
-            preserveAspectRatio="none"
-            style={{
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          style={{
             position: "fixed",
             inset: 0,
             width: "100vw",
             height: "100vh",
             pointerEvents: "none",
             zIndex: 39,
-            }}
+          }}
         >
-            {/* Lines going UP from TOP PORT */}
-            {[
-            { x: -18, y: 15, opacity: 0.7, width: 0.6 },
-            { x: -8, y: 12, opacity: 0.9, width: 0.8 },
-            { x: 2, y: 18, opacity: 0.6, width: 0.5 },
-            { x: 10, y: 10, opacity: 1, width: 0.9 },
-            { x: 20, y: 14, opacity: 0.75, width: 0.7 },
-            { x: -12, y: 20, opacity: 0.5, width: 0.4 },
-            ].map((line, i) => {
+          {/* Lines going UP from TOP PORT */}
+          {[
+            { x: -18, curveX: -25, y: 15, opacity: 0.7, width: 0.6 },
+            { x: -8, curveX: -12, y: 12, opacity: 0.9, width: 0.8 },
+            { x: 2, curveX: 4, y: 18, opacity: 0.6, width: 0.5 },
+            { x: 10, curveX: 15, y: 10, opacity: 1, width: 0.9 },
+            { x: 20, curveX: 28, y: 14, opacity: 0.75, width: 0.7 },
+            { x: -12, curveX: -18, y: 20, opacity: 0.5, width: 0.4 },
+          ].map((line, i) => {
             const targetX = 50 + line.x;
+            const controlX = 50 + line.curveX; // OUTWARD curve control point
             const controlY = line.y;
             
             return (
-                <g key={`top-${i}`} opacity={line.opacity}>
+              <g key={`top-${i}`} opacity={line.opacity}>
                 {/* Outer glow layer */}
                 <path
-                    d={`M 50 32.5 Q ${targetX} ${controlY}, ${targetX} 0`}
-                    fill="none"
-                    stroke="rgba(102,210,255,0.3)"
-                    strokeWidth={line.width * 1.2}
+                  d={`M 50 32.5 Q ${controlX} ${controlY}, ${targetX} 0`}
+                  fill="none"
+                  stroke="rgba(102,210,255,0.3)"
+                  strokeWidth={line.width * 1.2}
                 />
                 {/* Main line */}
                 <path
-                    d={`M 50 32.5 Q ${targetX} ${controlY}, ${targetX} 0`}
-                    fill="none"
-                    stroke="rgba(102,210,255,0.9)"
-                    strokeWidth={line.width * 0.4}
+                  d={`M 50 32.5 Q ${controlX} ${controlY}, ${targetX} 0`}
+                  fill="none"
+                  stroke="rgba(102,210,255,0.9)"
+                  strokeWidth={line.width * 0.4}
                 />
                 {/* Bright core */}
                 <path
-                    d={`M 50 32.5 Q ${targetX} ${controlY}, ${targetX} 0`}
-                    fill="none"
-                    stroke="rgba(200,240,255,1)"
-                    strokeWidth={line.width * 0.2}
+                  d={`M 50 32.5 Q ${controlX} ${controlY}, ${targetX} 0`}
+                  fill="none"
+                  stroke="rgba(200,240,255,1)"
+                  strokeWidth={line.width * 0.2}
                 />
-                </g>
+              </g>
             );
-            })}
+          })}
 
-            {/* Lines going DOWN from BOTTOM PORT */}
-            {[
-            { x: -16, y: 82, opacity: 0.8, width: 0.7 },
-            { x: -6, y: 88, opacity: 0.6, width: 0.5 },
-            { x: 4, y: 80, opacity: 0.9, width: 0.85 },
-            { x: 12, y: 85, opacity: 1, width: 0.9 },
-            { x: 18, y: 78, opacity: 0.65, width: 0.6 },
-            { x: -10, y: 86, opacity: 0.55, width: 0.45 },
-            ].map((line, i) => {
+          {/* Lines going DOWN from BOTTOM PORT */}
+          {[
+            { x: -16, curveX: -22, y: 82, opacity: 0.8, width: 0.7 },
+            { x: -6, curveX: -10, y: 88, opacity: 0.6, width: 0.5 },
+            { x: 4, curveX: 6, y: 80, opacity: 0.9, width: 0.85 },
+            { x: 12, curveX: 18, y: 85, opacity: 1, width: 0.9 },
+            { x: 18, curveX: 25, y: 78, opacity: 0.65, width: 0.6 },
+            { x: -10, curveX: -15, y: 86, opacity: 0.55, width: 0.45 },
+          ].map((line, i) => {
             const targetX = 50 + line.x;
+            const controlX = 50 + line.curveX; // OUTWARD curve control point
             const controlY = line.y;
             
             return (
-                <g key={`bottom-${i}`} opacity={line.opacity}>
+              <g key={`bottom-${i}`} opacity={line.opacity}>
                 {/* Outer glow layer */}
                 <path
-                    d={`M 50 67.5 Q ${targetX} ${controlY}, ${targetX} 100`}
-                    fill="none"
-                    stroke="rgba(102,210,255,0.3)"
-                    strokeWidth={line.width * 1.2}
+                  d={`M 50 67.5 Q ${controlX} ${controlY}, ${targetX} 100`}
+                  fill="none"
+                  stroke="rgba(102,210,255,0.3)"
+                  strokeWidth={line.width * 1.2}
                 />
                 {/* Main line */}
                 <path
-                    d={`M 50 67.5 Q ${targetX} ${controlY}, ${targetX} 100`}
-                    fill="none"
-                    stroke="rgba(102,210,255,0.9)"
-                    strokeWidth={line.width * 0.4}
+                  d={`M 50 67.5 Q ${controlX} ${controlY}, ${targetX} 100`}
+                  fill="none"
+                  stroke="rgba(102,210,255,0.9)"
+                  strokeWidth={line.width * 0.4}
                 />
                 {/* Bright core */}
                 <path
-                    d={`M 50 67.5 Q ${targetX} ${controlY}, ${targetX} 100`}
-                    fill="none"
-                    stroke="rgba(200,240,255,1)"
-                    strokeWidth={line.width * 0.2}
+                  d={`M 50 67.5 Q ${controlX} ${controlY}, ${targetX} 100`}
+                  fill="none"
+                  stroke="rgba(200,240,255,1)"
+                  strokeWidth={line.width * 0.2}
                 />
-                </g>
+              </g>
             );
-            })}
+          })}
         </svg>
-        )}
+      )}
 
       {/* Back arrow button - only shows when expanded */}
       {expanded && (
