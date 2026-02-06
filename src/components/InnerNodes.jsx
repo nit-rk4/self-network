@@ -1,96 +1,162 @@
-import { useMemo, useRef, useEffect, useState } from "react";
-import InnerNode from "./InnerNode";
+import { useMemo, useRef, useEffect, useCallback, forwardRef } from "react";
+
+const InnerNode = forwardRef(({ label, delay, onClick }, ref) => (
+  <button
+    ref={ref}
+    className="inner-node pixel-text"
+    onClick={onClick}
+    style={{
+      position: "absolute",
+      left: 0,
+      top: 0,
+      transform: "translate(-50%,-50%)",
+      background: "#021018",
+      border: "1px solid rgba(102,210,255,0.14)",
+      color: "var(--accent)",
+      padding: "18px 28px",
+      borderRadius: 10,
+      minWidth: 180,
+      fontSize: 13,
+      fontWeight: 800,
+      boxShadow: "0 10px 30px rgba(0,150,255,0.06)",
+      opacity: 0,
+      cursor: "pointer",
+      zIndex: 2,
+      "--delay": `${delay}ms`,
+      willChange: "left, top",
+    }}
+  >
+    {label}
+  </button>
+));
+InnerNode.displayName = "InnerNode";
 
 export default function InnerNodes({ nodes, onNodeClick }) {
   const nodeRefs = useRef([]);
-  const [nodePositions, setNodePositions] = useState([]);
-  const [connections, setConnections] = useState([]);
+  const svgRef = useRef(null);
+  const containerRef = useRef(null);
+  const simRef = useRef(null);
+  const rafRef = useRef(null);
 
-  // Generate random non-overlapping positions
-  const positions = useMemo(() => {
-    const pos = [];
-    const minDistance = 18;
+  // Build initial positions + velocities once
+  const initData = useMemo(() => {
     const margin = 12;
-    
-    const checkOverlap = (newPos, existingPositions) => {
-      for (let p of existingPositions) {
-        const distance = Math.sqrt(
-          Math.pow(newPos.left - p.left, 2) + 
-          Math.pow(newPos.top - p.top, 2)
-        );
-        if (distance < minDistance) return true;
-      }
-      return false;
-    };
-    
+    const minDistance = 18;
+    const positions = [];
+
     nodes.forEach(() => {
       let attempts = 0;
-      let newPos;
-      
+      let pos;
       do {
-        newPos = {
-          left: margin + Math.random() * (100 - 2 * margin),
-          top: margin + Math.random() * (100 - 2 * margin),
+        pos = {
+          x: margin + Math.random() * (100 - 2 * margin),
+          y: margin + Math.random() * (100 - 2 * margin),
         };
         attempts++;
-      } while (checkOverlap(newPos, pos) && attempts < 50);
-      
-      pos.push(newPos);
+      } while (
+        positions.some(
+          (p) => Math.hypot(pos.x - p.x, pos.y - p.y) < minDistance
+        ) &&
+        attempts < 50
+      );
+      positions.push(pos);
     });
-    
-    return pos;
-  }, [nodes.length]);
 
-  // Calculate actual pixel positions after nodes render
-  useEffect(() => {
-    const calculatePositions = () => {
-      const containerRef = nodeRefs.current[0]?.parentElement;
-      if (!containerRef) return;
-      
-      const containerRect = containerRef.getBoundingClientRect();
-      const containerWidth = containerRect.width;
-      const containerHeight = containerRect.height;
-      
-      const newPositions = positions.map(pos => ({
-        x: (pos.left / 100) * containerWidth,
-        y: (pos.top / 100) * containerHeight,
-      }));
-      
-      setNodePositions(newPositions);
-    };
+    const particles = positions.map((p) => {
+      const speed = 0.012 + Math.random() * 0.018; // % per frame
+      const angle = Math.random() * Math.PI * 2;
+      return {
+        x: p.x,
+        y: p.y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+      };
+    });
 
-    // Wait for animation to start, then calculate
-    setTimeout(calculatePositions, 100);
-  }, [positions]);
-
-  // Generate connections after positions are calculated
-  useEffect(() => {
-    if (nodePositions.length === 0) return;
-    
-    const lines = [];
-    nodePositions.forEach((pos, i) => {
-      const numConnections = 2 + Math.floor(Math.random() * 2);
-      for (let j = 0; j < numConnections; j++) {
-        const targetIndex = Math.floor(Math.random() * nodePositions.length);
-        if (targetIndex !== i) {
-          lines.push({
-            from: nodePositions[i],
-            to: nodePositions[targetIndex],
-          });
-        }
+    // Pre-generate connection pairs (indices)
+    const connPairs = [];
+    particles.forEach((_, i) => {
+      const count = 2 + Math.floor(Math.random() * 2);
+      for (let c = 0; c < count; c++) {
+        const j = Math.floor(Math.random() * particles.length);
+        if (j !== i) connPairs.push([i, j]);
       }
     });
-    
-    setConnections(lines);
-  }, [nodePositions]);
+
+    return { particles, connPairs };
+  }, [nodes.length]);
+
+  // Animation loop — direct DOM mutation, no React state
+  const animate = useCallback(() => {
+    const { particles, connPairs } = simRef.current;
+    const margin = 5;
+
+    // Move particles
+    for (const p of particles) {
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < margin) { p.x = margin; p.vx *= -1; }
+      if (p.x > 100 - margin) { p.x = 100 - margin; p.vx *= -1; }
+      if (p.y < margin) { p.y = margin; p.vy *= -1; }
+      if (p.y > 100 - margin) { p.y = 100 - margin; p.vy *= -1; }
+    }
+
+    // Update DOM nodes
+    particles.forEach((p, i) => {
+      const el = nodeRefs.current[i];
+      if (el) {
+        el.style.left = `${p.x}%`;
+        el.style.top = `${p.y}%`;
+      }
+    });
+
+    // Update SVG lines
+    const svg = svgRef.current;
+    if (svg) {
+      const lines = svg.querySelectorAll("line");
+      connPairs.forEach(([from, to], idx) => {
+        const line = lines[idx];
+        if (!line) return;
+        const container = containerRef.current;
+        if (!container) return;
+        const w = container.offsetWidth;
+        const h = container.offsetHeight;
+        line.setAttribute("x1", (particles[from].x / 100) * w);
+        line.setAttribute("y1", (particles[from].y / 100) * h);
+        line.setAttribute("x2", (particles[to].x / 100) * w);
+        line.setAttribute("y2", (particles[to].y / 100) * h);
+      });
+    }
+
+    rafRef.current = requestAnimationFrame(animate);
+  }, []);
+
+  useEffect(() => {
+    simRef.current = initData;
+
+    // Set initial positions
+    initData.particles.forEach((p, i) => {
+      const el = nodeRefs.current[i];
+      if (el) {
+        el.style.left = `${p.x}%`;
+        el.style.top = `${p.y}%`;
+      }
+    });
+
+    rafRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [initData, animate]);
 
   return (
     <div
+      ref={containerRef}
       onClick={(e) => e.stopPropagation()}
       style={{ position: "absolute", inset: 0, overflow: "hidden" }}
     >
       {/* SVG layer for connection lines */}
       <svg
+        ref={svgRef}
         style={{
           position: "absolute",
           width: "100%",
@@ -101,13 +167,13 @@ export default function InnerNodes({ nodes, onNodeClick }) {
           zIndex: 1,
         }}
       >
-        {connections.map((conn, i) => (
+        {initData.connPairs.map((_, i) => (
           <line
             key={i}
-            x1={conn.from.x}
-            y1={conn.from.y}
-            x2={conn.to.x}
-            y2={conn.to.y}
+            x1={0}
+            y1={0}
+            x2={0}
+            y2={0}
             stroke="rgba(102,210,255,0.15)"
             strokeWidth="2"
             style={{
@@ -135,7 +201,6 @@ export default function InnerNodes({ nodes, onNodeClick }) {
           key={i}
           ref={(el) => (nodeRefs.current[i] = el)}
           label={node.label}
-          position={positions[i]}
           delay={i * 60}
           onClick={(e) => {
             e.stopPropagation();
