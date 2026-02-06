@@ -1,5 +1,5 @@
 import NodeOverlay from "./NodeOverlay";
-import identityPhoto from "../assets/image.jpg";
+import identityPhoto from "../../assets/image.jpg";
 
 const IDENTITY_COLOR = "160,180,200";
 
@@ -83,7 +83,7 @@ export default function IdentityOverlay({ onClose }) {
                 margin: 0,
               }}
             >
-              My name is <strong>Denise Ruth Manalang </strong>. I am 20 years old, born on April 16, 2005, and I am a third-year Computer Science student. I’m usually quiet at first, but I become more comfortable and expressive once I get to know people.
+              My name is <strong>Denise Ruth Manalang </strong>. I am 20 years old, born on April 16, 2005, and I am a third-year Computer Science student. I'm usually quiet at first, but I become more comfortable and expressive once I get to know people.
             </p>
             <br/>
             <p

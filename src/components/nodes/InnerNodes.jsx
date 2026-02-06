@@ -1,5 +1,5 @@
 import { useMemo, useRef, useEffect, useCallback, forwardRef } from "react";
-import BlinkingWords from "./BlinkingWords";
+import BlinkingWords from "../effects/BlinkingWords";
 
 const InnerNode = forwardRef(({ label, delay, onClick, color = "102,210,255", isShadow, shadowRevealed }, ref) => {
   const shadowClass = isShadow

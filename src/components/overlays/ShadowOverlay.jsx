@@ -22,7 +22,7 @@ export default function ShadowOverlay({ onClose }) {
             margin: 0,
           }}
         >
-          Most people prefer not to notice their insecurities, hoping they’ll disappear. 
+          Most people prefer not to notice their insecurities, hoping they'll disappear. 
           <br/>Yet they remain, always following, quietly shaping who we are.
         </p>
         <div
@@ -33,7 +33,7 @@ export default function ShadowOverlay({ onClose }) {
           }}
         >
           Look around you. 
-          Notice what wasn’t obvious before, that emerges only when you pay attention.
+          Notice what wasn't obvious before, that emerges only when you pay attention.
         </div>
       </div>
     </NodeOverlay>

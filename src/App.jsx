@@ -1,7 +1,7 @@
 import { useState } from "react";
-import RootNode from "./components/RootNode";
-import PasswordScreen from "./components/PasswordScreen";
-import TitleScreen from "./components/TitleScreen";
+import RootNode from "./components/nodes/RootNode";
+import PasswordScreen from "./components/screens/PasswordScreen";
+import TitleScreen from "./components/screens/TitleScreen";
 import innerNetworkGif from "./assets/inner-network.gif";
 import outerNetworkGif from "./assets/outer-network.gif";
 

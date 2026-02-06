@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { FiArrowLeft, FiHelpCircle } from "react-icons/fi";
 import InnerNodes from "./InnerNodes";
-import IdentityOverlay from "./IdentityOverlay";
-import StrengthOverlay from "./StrengthOverlay";
-import ShadowOverlay from "./ShadowOverlay";
-import InsecurityWords from "./InsecurityWords";
-import GuideScreen from "./GuideScreen";
+import IdentityOverlay from "../overlays/IdentityOverlay";
+import StrengthOverlay from "../overlays/StrengthOverlay";
+import ShadowOverlay from "../overlays/ShadowOverlay";
+import InsecurityWords from "../effects/InsecurityWords";
+import GuideScreen from "../overlays/GuideScreen";
 
 export default function RootNode({ label, childrenNodes = [], outerBgGif, innerBgGif }) {
   const [expanded, setExpanded] = useState(false);
