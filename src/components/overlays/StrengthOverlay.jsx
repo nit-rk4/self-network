@@ -27,13 +27,13 @@ function Pillar({ word, detail }) {
     <div
       onClick={() => setExpanded((prev) => !prev)}
       style={{
-        flex: 1,
+        flex: "1 1 0",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "flex-end",
         cursor: "pointer",
-        minWidth: 0,
+        minWidth: "clamp(50px, calc(30px + 3.5vw), 120px)",
         position: "relative",
       }}
     >
@@ -105,7 +105,7 @@ function Pillar({ word, detail }) {
         >
           <p
             style={{
-              fontSize: 12,
+              fontSize: "clamp(10px, calc(6px + 0.42vw), 20px)",
               lineHeight: 1.7,
               color: `rgba(${STRENGTH_COLOR},0.7)`,
               margin: 0,
@@ -132,7 +132,7 @@ function Pillar({ word, detail }) {
       <div
         style={{
           width: "100%",
-          padding: "12px 4px",
+          padding: "clamp(8px, calc(5px + 0.48vw), 20px) clamp(2px, calc(1px + 0.2vw), 8px)",
           background: `linear-gradient(180deg, rgba(${STRENGTH_COLOR},${expanded ? 0.2 : 0.08}) 0%, rgba(${STRENGTH_COLOR},${expanded ? 0.12 : 0.04}) 100%)`,
           borderRadius: "0 0 4px 4px",
           border: `1px solid rgba(${STRENGTH_COLOR},${expanded ? 0.4 : 0.15})`,
@@ -146,7 +146,7 @@ function Pillar({ word, detail }) {
       >
         <span
           style={{
-            fontSize: 12,
+            fontSize: "clamp(9px, calc(6px + 0.42vw), 20px)",
             fontWeight: 700,
             color: `rgb(${STRENGTH_COLOR})`,
             letterSpacing: "0.05em",
@@ -166,9 +166,9 @@ export default function StrengthOverlay({ onClose }) {
       <p
         style={{
           textAlign: "center",
-          fontSize: 13,
+          fontSize: "clamp(11px, calc(7px + 0.42vw), 22px)",
           color: `rgba(${STRENGTH_COLOR},0.45)`,
-          marginBottom: 16,
+          marginBottom: "clamp(12px, calc(8px + 0.55vw), 28px)",
           fontStyle: "italic",
         }}
       >
@@ -179,10 +179,12 @@ export default function StrengthOverlay({ onClose }) {
           key={ri}
           style={{
             display: "flex",
-            gap: 12,
+            flexWrap: "wrap",
+            gap: "clamp(6px, calc(4px + 0.55vw), 20px)",
             alignItems: "flex-end",
-            padding: "0 16px",
-            marginBottom: ri === 0 ? 18 : 0,
+            padding: "0 clamp(8px, calc(6px + 0.7vw), 28px)",
+            marginBottom: ri === 0 ? "clamp(10px, calc(6px + 0.6vw), 30px)" : 0,
+            justifyContent: "center",
           }}
         >
           {row.map((p, i) => (

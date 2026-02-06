@@ -62,13 +62,13 @@ body {
 
 /* Overlay panel - doesn't fill the whole screen */
 .overlay-panel {
-  width: 70vw;
-  max-width: 900px;
-  max-height: 75vh;
+  width: 85vw;
+  max-width: clamp(900px, calc(600px + 25vw), 1400px);
+  max-height: 80vh;
   background: linear-gradient(180deg, #0a1e30 0%, #081828 100%);
   border: 1px solid rgba(102, 210, 255, 0.2);
-  border-radius: 16px;
-  padding: 32px;
+  border-radius: clamp(10px, calc(8px + 0.55vw), 28px);
+  padding: clamp(18px, calc(14px + 1.25vw), 56px);
   box-shadow:
     0 0 40px rgba(0, 150, 255, 0.15),
     0 20px 60px rgba(0, 0, 0, 0.5);
@@ -315,4 +315,34 @@ body {
 .abyss-difficulty-bubble {
   animation: abyssBubbleDrift 12s ease-in-out infinite;
   will-change: transform, opacity;
+}
+
+/* ─── Mobile-first responsive adjustments ─── */
+
+@media (max-width: 768px) {
+  .screen-container {
+    padding: 16px;
+  }
+
+  .pixel-text {
+    word-spacing: 0.05em;
+  }
+
+  /* Make RootNode main panel properly sized on mobile */
+  .panel {
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Ensure overlays use full width on very small screens */
+  .overlay-backdrop {
+    padding: 8px;
+  }
+}
+
+/* Ensure smooth font rendering across all sizes */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

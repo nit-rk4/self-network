@@ -9,14 +9,14 @@ export default function ShadowOverlay({ onClose }) {
         style={{
           display: "flex",
           flexDirection: "column",
-          gap: 20,
+          gap: "clamp(12px, calc(8px + 0.8vw), 36px)",
           textAlign: "center",
-          padding: "16px 0",
+          padding: "clamp(8px, calc(6px + 0.7vw), 28px) 0",
         }}
       >
         <p
           style={{
-            fontSize: 14,
+            fontSize: "clamp(12px, calc(7px + 0.48vw), 24px)",
             lineHeight: 1.8,
             color: `rgba(${SHADOW_COLOR},0.8)`,
             margin: 0,
@@ -27,7 +27,7 @@ export default function ShadowOverlay({ onClose }) {
         </p>
         <div
           style={{
-            fontSize: 12,
+            fontSize: "clamp(10px, calc(6px + 0.42vw), 20px)",
             color: `rgba(${SHADOW_COLOR},0.5)`,
             fontStyle: "italic",
           }}

@@ -10,12 +10,12 @@ export default function AbyssEntryOverlay({ onClose, onEnter }) {
         className="overlay-panel"
         onClick={(e) => e.stopPropagation()}
         style={{
-          maxWidth: 520,
+          maxWidth: "min(520px, 90vw)",
           borderColor: "rgba(140,100,200,0.2)",
           boxShadow:
             "0 0 60px rgba(140,100,200,0.12), 0 20px 60px rgba(0,0,0,0.5)",
           textAlign: "center",
-          padding: "48px 40px",
+          padding: "clamp(24px, calc(16px + 2.2vw), 80px) clamp(20px, calc(14px + 1.8vw), 68px)",
         }}
       >
         {/* Lock icon as the "key" to enter */}
@@ -29,12 +29,12 @@ export default function AbyssEntryOverlay({ onClose, onEnter }) {
               : "rgba(140,100,200,0.06)",
             border: `1px solid rgba(140,100,200,${lockHovered ? 0.5 : 0.25})`,
             borderRadius: "50%",
-            width: 72,
-            height: 72,
+            width: "clamp(52px, calc(36px + 2.5vw), 100px)",
+            height: "clamp(52px, calc(36px + 2.5vw), 100px)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            margin: "0 auto 28px",
+            margin: "0 auto clamp(16px, calc(12px + 1.1vw), 48px)",
             cursor: "pointer",
             transition: "all 0.4s ease",
             boxShadow: lockHovered
@@ -45,7 +45,7 @@ export default function AbyssEntryOverlay({ onClose, onEnter }) {
         >
           <FiLock
             style={{
-              fontSize: 28,
+              fontSize: "clamp(20px, calc(14px + 1vw), 48px)",
               color: lockHovered
                 ? "rgba(200,170,255,0.9)"
                 : "rgba(180,140,240,0.6)",
@@ -58,9 +58,9 @@ export default function AbyssEntryOverlay({ onClose, onEnter }) {
         <h2
           className="pixel-text"
           style={{
-            fontSize: 11,
+            fontSize: "clamp(9px, calc(5px + 0.4vw), 18px)",
             color: "rgba(180,140,240,0.8)",
-            margin: "0 0 20px",
+            margin: "0 0 clamp(12px, calc(8px + 0.8vw), 36px)",
             letterSpacing: "0.12em",
           }}
         >
@@ -70,10 +70,10 @@ export default function AbyssEntryOverlay({ onClose, onEnter }) {
         {/* Description */}
         <p
           style={{
-            fontSize: 14,
+            fontSize: "clamp(12px, calc(7px + 0.48vw), 24px)",
             color: "rgba(180,140,240,0.5)",
             lineHeight: 1.8,
-            margin: "0 0 12px",
+            margin: "0 0 clamp(8px, calc(5px + 0.48vw), 20px)",
           }}
         >
           Beyond here lie the most fragile parts of who I am — the feelings
@@ -83,10 +83,10 @@ export default function AbyssEntryOverlay({ onClose, onEnter }) {
 
         <p
           style={{
-            fontSize: 13,
+            fontSize: "clamp(11px, calc(7px + 0.42vw), 22px)",
             color: "rgba(180,140,240,0.4)",
             lineHeight: 1.7,
-            margin: "0 0 32px",
+            margin: "0 0 clamp(18px, calc(12px + 1.25vw), 52px)",
             fontStyle: "italic",
           }}
         >
@@ -96,7 +96,7 @@ export default function AbyssEntryOverlay({ onClose, onEnter }) {
         {/* Prompt */}
         <p
           style={{
-            fontSize: 12,
+            fontSize: "clamp(10px, calc(6px + 0.42vw), 20px)",
             color: "rgba(180,140,240,0.55)",
             margin: 0,
             letterSpacing: "0.03em",
@@ -109,11 +109,11 @@ export default function AbyssEntryOverlay({ onClose, onEnter }) {
         <button
           onClick={onClose}
           style={{
-            marginTop: 24,
+            marginTop: "clamp(14px, calc(10px + 1vw), 42px)",
             background: "none",
             border: "none",
             color: "rgba(140,100,200,0.3)",
-            fontSize: 12,
+            fontSize: "clamp(10px, calc(6px + 0.42vw), 20px)",
             cursor: "pointer",
             transition: "color 0.2s ease",
           }}

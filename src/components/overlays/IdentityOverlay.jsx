@@ -9,7 +9,9 @@ export default function IdentityOverlay({ onClose }) {
       <div
         style={{
           display: "flex",
-          gap: 32,
+          flexDirection: "row",
+          flexWrap: "wrap",
+          gap: "clamp(16px, calc(12px + 1.3vw), 52px)",
           height: "100%",
           minHeight: 0,
         }}
@@ -17,7 +19,8 @@ export default function IdentityOverlay({ onClose }) {
         {/* Left side - Photo */}
         <div
           style={{
-            flex: "0 0 40%",
+            flex: "1 1 clamp(180px, 40%, 300px)",
+            minWidth: "min(180px, 100%)",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -28,7 +31,7 @@ export default function IdentityOverlay({ onClose }) {
             style={{
               width: "100%",
               aspectRatio: "3 / 4",
-              maxHeight: 360,
+              maxHeight: "clamp(200px, 40vh, 480px)",
               border: `1px solid rgba(${IDENTITY_COLOR},0.2)`,
               borderRadius: 12,
               background: `rgba(${IDENTITY_COLOR},0.03)`,
@@ -42,7 +45,7 @@ export default function IdentityOverlay({ onClose }) {
             <span
               style={{
                 color: `rgba(${IDENTITY_COLOR},0.3)`,
-                fontSize: 13,
+                fontSize: "clamp(11px, calc(7px + 0.42vw), 22px)",
                 textAlign: "center",
                 padding: 16,
               }}
@@ -55,10 +58,11 @@ export default function IdentityOverlay({ onClose }) {
         {/* Right side - Description & Quote */}
         <div
           style={{
-            flex: 1,
+            flex: "1 1 clamp(200px, 50%, 400px)",
+            minWidth: "min(200px, 100%)",
             display: "flex",
             flexDirection: "column",
-            gap: 24,
+            gap: "clamp(14px, calc(10px + 1vw), 38px)",
             overflowY: "auto",
           }}
         >
@@ -67,9 +71,9 @@ export default function IdentityOverlay({ onClose }) {
             <h3
               className="pixel-text"
               style={{
-                fontSize: 10,
+                fontSize: "clamp(8px, calc(5px + 0.35vw), 16px)",
                 color: `rgb(${IDENTITY_COLOR})`,
-                marginBottom: 12,
+                marginBottom: "clamp(8px, calc(5px + 0.48vw), 20px)",
                 opacity: 0.8,
               }}
             >
@@ -77,7 +81,7 @@ export default function IdentityOverlay({ onClose }) {
             </h3>
             <p
               style={{
-                fontSize: 15,
+                fontSize: "clamp(12px, calc(7px + 0.55vw), 26px)",
                 lineHeight: 1.7,
                 color: `rgba(${IDENTITY_COLOR},0.85)`,
                 margin: 0,
@@ -88,7 +92,7 @@ export default function IdentityOverlay({ onClose }) {
             <br/>
             <p
               style={{
-                fontSize: 15,
+                fontSize: "clamp(12px, calc(7px + 0.55vw), 26px)",
                 lineHeight: 1.7,
                 color: `rgba(${IDENTITY_COLOR},0.85)`,
                 margin: 0,
@@ -108,7 +112,7 @@ export default function IdentityOverlay({ onClose }) {
           >
             <p
               style={{
-                fontSize: 14,
+                fontSize: "clamp(12px, calc(7px + 0.48vw), 24px)",
                 fontStyle: "italic",
                 lineHeight: 1.6,
                 color: `rgba(${IDENTITY_COLOR},0.7)`,
@@ -119,7 +123,7 @@ export default function IdentityOverlay({ onClose }) {
             </p>
             <span
               style={{
-                fontSize: 12,
+                fontSize: "clamp(10px, calc(6px + 0.42vw), 20px)",
                 color: `rgba(${IDENTITY_COLOR},0.4)`,
                 marginTop: 6,
                 display: "block",

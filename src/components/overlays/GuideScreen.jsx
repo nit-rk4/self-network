@@ -35,7 +35,7 @@ export default function GuideScreen({ onClose }) {
       <div
         className="overlay-panel"
         onClick={(e) => e.stopPropagation()}
-        style={{ maxWidth: 640, maxHeight: "80vh" }}
+        style={{ maxWidth: "min(640px, 90vw)", maxHeight: "80vh" }}
       >
         {/* Header */}
         <div
@@ -43,13 +43,13 @@ export default function GuideScreen({ onClose }) {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            marginBottom: 24,
+            marginBottom: "clamp(14px, calc(10px + 1vw), 42px)",
           }}
         >
           <h2
             className="pixel-text"
             style={{
-              fontSize: 13,
+              fontSize: "clamp(10px, calc(6px + 0.48vw), 22px)",
               color: "var(--accent)",
               margin: 0,
               letterSpacing: "0.05em",
@@ -63,13 +63,13 @@ export default function GuideScreen({ onClose }) {
               background: "rgba(102,210,255,0.08)",
               border: "1px solid rgba(102,210,255,0.2)",
               borderRadius: "50%",
-              width: 36,
-              height: 36,
+              width: "clamp(28px, calc(18px + 1.1vw), 48px)",
+              height: "clamp(28px, calc(18px + 1.1vw), 48px)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               color: "var(--accent)",
-              fontSize: 18,
+              fontSize: "clamp(14px, calc(9px + 0.6vw), 30px)",
               cursor: "pointer",
               transition: "all 0.2s ease",
             }}
@@ -81,9 +81,9 @@ export default function GuideScreen({ onClose }) {
 
         <p
           style={{
-            fontSize: 14,
+            fontSize: "clamp(12px, calc(7px + 0.48vw), 24px)",
             color: "rgba(102,210,255,0.6)",
-            marginBottom: 24,
+            marginBottom: "clamp(14px, calc(10px + 1vw), 42px)",
             lineHeight: 1.6,
           }}
         >
@@ -92,12 +92,12 @@ export default function GuideScreen({ onClose }) {
         </p>
 
         {/* Guide items */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "clamp(10px, calc(6px + 0.7vw), 28px)" }}>
           {guideItems.map((item) => (
             <div
               key={item.node}
               style={{
-                padding: "14px 18px",
+                padding: "clamp(10px, calc(6px + 0.55vw), 24px) clamp(12px, calc(8px + 0.7vw), 30px)",
                 background: "rgba(102,210,255,0.03)",
                 border: "1px solid rgba(102,210,255,0.1)",
                 borderRadius: 10,
@@ -114,7 +114,7 @@ export default function GuideScreen({ onClose }) {
                 <span
                   className="pixel-text"
                   style={{
-                    fontSize: 10,
+                    fontSize: "clamp(8px, calc(5px + 0.35vw), 16px)",
                     color: "var(--accent)",
                   }}
                 >
@@ -122,7 +122,7 @@ export default function GuideScreen({ onClose }) {
                 </span>
                 <span
                   style={{
-                    fontSize: 11,
+                    fontSize: "clamp(9px, calc(5px + 0.4vw), 18px)",
                     color: "rgba(102,210,255,0.4)",
                     flexShrink: 0,
                     marginLeft: 12,
@@ -133,7 +133,7 @@ export default function GuideScreen({ onClose }) {
               </div>
               <p
                 style={{
-                  fontSize: 13,
+                  fontSize: "clamp(11px, calc(7px + 0.42vw), 22px)",
                   color: "rgba(102,210,255,0.7)",
                   margin: 0,
                   lineHeight: 1.5,
@@ -148,8 +148,8 @@ export default function GuideScreen({ onClose }) {
         {/* Hint */}
         <div
           style={{
-            marginTop: 24,
-            padding: "16px 20px",
+            marginTop: "clamp(14px, calc(10px + 1vw), 42px)",
+            padding: "clamp(10px, calc(6px + 0.7vw), 28px) clamp(12px, calc(8px + 0.8vw), 34px)",
             background: "rgba(102,210,255,0.04)",
             border: "1px dashed rgba(102,210,255,0.25)",
             borderRadius: 10,
@@ -159,7 +159,7 @@ export default function GuideScreen({ onClose }) {
           <p
             className="pixel-text"
             style={{
-              fontSize: 10,
+              fontSize: "clamp(8px, calc(5px + 0.35vw), 16px)",
               color: "rgba(102,210,255,0.45)",
               margin: 0,
               marginBottom: 6,
@@ -170,7 +170,7 @@ export default function GuideScreen({ onClose }) {
           </p>
           <p
             style={{
-              fontSize: 13,
+              fontSize: "clamp(11px, calc(7px + 0.42vw), 22px)",
               color: "rgba(102,210,255,0.55)",
               margin: 0,
               lineHeight: 1.6,

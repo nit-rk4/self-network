@@ -12,11 +12,11 @@ export default function AbyssDoor({ onClick }) {
       onMouseLeave={() => setHovered(false)}
       style={{
         position: "fixed",
-        bottom: 36,
-        right: 36,
+        bottom: "clamp(16px, calc(10px + 1.8vw), 60px)",
+        right: "clamp(16px, calc(10px + 1.8vw), 60px)",
         zIndex: 45,
-        width: 88,
-        height: 132,
+        width: "clamp(60px, calc(40px + 3.3vw), 130px)",
+        height: "clamp(90px, calc(60px + 5vw), 200px)",
         background: hovered
           ? "linear-gradient(180deg, rgba(20,10,30,0.95) 0%, rgba(8,4,16,0.98) 100%)"
           : "linear-gradient(180deg, rgba(14,8,22,0.9) 0%, rgba(6,3,12,0.95) 100%)",
@@ -53,7 +53,7 @@ export default function AbyssDoor({ onClick }) {
       {/* Keyhole / lock icon */}
       <FiLock
         style={{
-          fontSize: 24,
+          fontSize: "clamp(16px, calc(10px + 0.7vw), 36px)",
           color: `rgba(180,140,240,${hovered ? 0.9 : 0.5})`,
           filter: hovered ? "drop-shadow(0 0 6px rgba(140,100,200,0.5))" : "none",
           transition: "all 0.4s ease",
@@ -64,7 +64,7 @@ export default function AbyssDoor({ onClick }) {
       <span
         className="pixel-text"
         style={{
-          fontSize: 7,
+          fontSize: "clamp(5px, calc(3px + 0.28vw), 12px)",
           color: `rgba(180,140,240,${hovered ? 0.8 : 0.4})`,
           letterSpacing: "0.15em",
           transition: "all 0.4s ease",

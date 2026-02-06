@@ -338,9 +338,9 @@ export default function GrowthOverlay({ onClose }) {
         <p
           style={{
             textAlign: "center",
-            fontSize: 13,
+            fontSize: "clamp(11px, calc(7px + 0.42vw), 22px)",
             color: `rgba(${GROWTH_COLOR},0.45)`,
-            marginBottom: 8,
+            marginBottom: "clamp(4px, calc(3px + 0.35vw), 14px)",
             fontStyle: "italic",
           }}
         >

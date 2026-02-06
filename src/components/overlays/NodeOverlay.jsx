@@ -17,13 +17,13 @@ export default function NodeOverlay({ title, onClose, children, color = "102,210
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            marginBottom: 24,
+            marginBottom: "clamp(14px, calc(10px + 1vw), 38px)",
           }}
         >
           <h2
             className="pixel-text"
             style={{
-              fontSize: 14,
+              fontSize: "clamp(10px, calc(5px + 0.35vw), 16px)",
               color: `rgb(${color})`,
               margin: 0,
               letterSpacing: "0.05em",
@@ -37,13 +37,13 @@ export default function NodeOverlay({ title, onClose, children, color = "102,210
               background: `rgba(${color},0.08)`,
               border: `1px solid rgba(${color},0.2)`,
               borderRadius: "50%",
-              width: 36,
-              height: 36,
+              width: "clamp(28px, calc(20px + 1.1vw), 48px)",
+              height: "clamp(28px, calc(20px + 1.1vw), 48px)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               color: `rgb(${color})`,
-              fontSize: 18,
+              fontSize: "clamp(14px, calc(9px + 0.6vw), 30px)",
               cursor: "pointer",
               transition: "all 0.2s ease",
             }}

@@ -277,7 +277,7 @@ export default function AbyssScreen({ onBack }) {
               top: `${3 + ((i * 17.3) % 86)}%`,
               fontSize: `${11 + (i % 4) * 2}px`,
               color: `rgba(180,140,240,${0.08 + (i % 5) * 0.03})`,
-              padding: "6px 14px",
+              padding: "clamp(4px, calc(3px + 0.2vw), 10px) clamp(8px, calc(5px + 0.48vw), 22px)",
               border: `1px solid rgba(140,100,200,${0.06 + (i % 4) * 0.02})`,
               borderRadius: 20,
               background: `rgba(140,100,200,${0.02 + (i % 3) * 0.01})`,
@@ -297,23 +297,23 @@ export default function AbyssScreen({ onBack }) {
         onClick={onBack}
         style={{
           position: "fixed",
-          top: 30,
-          left: 30,
+          top: "clamp(14px, calc(10px + 1vw), 42px)",
+          left: "clamp(14px, calc(10px + 1vw), 42px)",
           zIndex: 80,
           background: "rgba(20,10,30,0.7)",
           border: "1px solid rgba(140,100,200,0.25)",
           borderRadius: "50%",
-          padding: 10,
+          padding: "clamp(6px, calc(4px + 0.42vw), 16px)",
           color: "rgba(180,140,240,0.7)",
-          fontSize: 28,
+          fontSize: "clamp(20px, calc(14px + 1vw), 48px)",
           cursor: "pointer",
           boxShadow: "0 0 20px rgba(140,100,200,0.2)",
           transition: "all 0.3s ease",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          width: 48,
-          height: 48,
+          width: "clamp(36px, calc(24px + 1.65vw), 68px)",
+          height: "clamp(36px, calc(24px + 1.65vw), 68px)",
         }}
         aria-label="Leave the Abyss"
       >
@@ -369,7 +369,7 @@ export default function AbyssScreen({ onBack }) {
                   data-line-idx={idx}
                   className={pressureTremble ? "abyss-tremble" : ""}
                   style={{
-                    fontSize: 15,
+                    fontSize: "clamp(12px, calc(7px + 0.55vw), 26px)",
                     color: isSurface
                       ? "rgba(200,175,240,0.82)"
                       : isPressure
@@ -378,8 +378,8 @@ export default function AbyssScreen({ onBack }) {
                     lineHeight: 1.8,
                     marginBottom: "60vh",
                     textAlign: "center",
-                    maxWidth: 560,
-                    padding: "0 24px",
+                    maxWidth: "min(560px, 90vw)",
+                    padding: "0 clamp(16px, calc(10px + 1vw), 42px)",
                     letterSpacing: "0.02em",
                     fontStyle: "italic",
                     opacity: revealed ? 1 : 0,
@@ -430,7 +430,7 @@ export default function AbyssScreen({ onBack }) {
         >
           <p
             style={{
-              fontSize: 12,
+              fontSize: "clamp(10px, calc(6px + 0.42vw), 20px)",
               color: "rgba(140,100,200,0.35)",
               letterSpacing: "0.1em",
               margin: 0,

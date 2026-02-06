@@ -24,17 +24,17 @@ export default function PasswordScreen({ onSuccess }) {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        gap: 32,
-        padding: 32,
+        gap: "clamp(16px, calc(12px + 1.3vw), 52px)",
+        padding: "clamp(16px, calc(12px + 1.3vw), 52px)",
       }}
     >
-      <div style={{ textAlign: "center", maxWidth: 480 }}>
+      <div style={{ textAlign: "center", maxWidth: "min(480px, 90vw)" }}>
         <h1
           className="pixel-text"
           style={{
-            fontSize: 16,
+            fontSize: "clamp(13px, calc(8px + 0.55vw), 28px)",
             color: "var(--accent)",
-            marginBottom: 16,
+            marginBottom: "clamp(10px, calc(6px + 0.7vw), 28px)",
             letterSpacing: "0.06em",
           }}
         >
@@ -42,7 +42,7 @@ export default function PasswordScreen({ onSuccess }) {
         </h1>
         <p
           style={{
-            fontSize: 15,
+            fontSize: "clamp(12px, calc(7px + 0.55vw), 26px)",
             lineHeight: 1.7,
             color: "rgba(102,210,255,0.7)",
             margin: 0,
@@ -60,7 +60,7 @@ export default function PasswordScreen({ onSuccess }) {
           alignItems: "center",
           gap: 16,
           width: "100%",
-          maxWidth: 320,
+          maxWidth: "min(320px, 85vw)",
         }}
       >
         <input
@@ -70,14 +70,14 @@ export default function PasswordScreen({ onSuccess }) {
           placeholder="Enter password"
           style={{
             width: "100%",
-            padding: "14px 18px",
+            padding: "clamp(10px, calc(6px + 0.55vw), 24px) clamp(12px, calc(8px + 0.7vw), 30px)",
             background: "rgba(102,210,255,0.05)",
             border: error
               ? "1px solid rgba(255,80,80,0.6)"
               : "1px solid rgba(102,210,255,0.2)",
             borderRadius: 10,
             color: "var(--accent)",
-            fontSize: 14,
+            fontSize: "clamp(12px, calc(7px + 0.48vw), 24px)",
             outline: "none",
             textAlign: "center",
             letterSpacing: "0.12em",
@@ -88,7 +88,7 @@ export default function PasswordScreen({ onSuccess }) {
         {error && (
           <span
             style={{
-              fontSize: 12,
+              fontSize: "clamp(10px, calc(6px + 0.42vw), 20px)",
               color: "rgba(255,80,80,0.8)",
             }}
           >
@@ -98,12 +98,12 @@ export default function PasswordScreen({ onSuccess }) {
         <button
           type="submit"
           style={{
-            padding: "12px 32px",
+            padding: "clamp(10px, calc(6px + 0.42vw), 20px) clamp(20px, calc(12px + 1.3vw), 52px)",
             background: "rgba(102,210,255,0.08)",
             border: "1px solid rgba(102,210,255,0.3)",
             borderRadius: 8,
             color: "var(--accent)",
-            fontSize: 13,
+            fontSize: "clamp(11px, calc(7px + 0.42vw), 22px)",
             cursor: "pointer",
             transition: "all 0.3s ease",
             letterSpacing: "0.05em",

@@ -192,23 +192,23 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
             onClick={() => setExpanded(false)}
             style={{
               position: "fixed",
-              top: 30,
-              left: 30,
+              top: "clamp(14px, calc(10px + 1vw), 42px)",
+              left: "clamp(14px, calc(10px + 1vw), 42px)",
               zIndex: 50,
               background: "rgba(6, 38, 58, 0.7)",
               border: "1px solid rgba(102,210,255,0.3)",
               borderRadius: "50%",
-              padding: 10,
+              padding: "clamp(6px, calc(4px + 0.42vw), 16px)",
               color: "var(--accent)",
-              fontSize: 28,
+              fontSize: "clamp(20px, calc(14px + 1vw), 48px)",
               cursor: "pointer",
               boxShadow: "0 0 20px rgba(102,210,255,0.4), 0 0 40px rgba(0,150,255,0.2)",
               transition: "all 0.3s ease",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              width: 48,
-              height: 48,
+              width: "clamp(36px, calc(24px + 1.65vw), 68px)",
+              height: "clamp(36px, calc(24px + 1.65vw), 68px)",
             }}
             aria-label="Back"
           >
@@ -219,23 +219,23 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
             onClick={() => setShowGuide(true)}
             style={{
               position: "fixed",
-              top: 30,
-              left: 90,
+              top: "clamp(14px, calc(10px + 1vw), 42px)",
+              left: "clamp(60px, calc(40px + 3.3vw), 130px)",
               zIndex: 50,
               background: "rgba(6, 38, 58, 0.7)",
               border: "1px solid rgba(102,210,255,0.3)",
               borderRadius: "50%",
-              padding: 10,
+              padding: "clamp(6px, calc(4px + 0.42vw), 16px)",
               color: "var(--accent)",
-              fontSize: 28,
+              fontSize: "clamp(20px, calc(14px + 1vw), 48px)",
               cursor: "pointer",
               boxShadow: "0 0 20px rgba(102,210,255,0.4), 0 0 40px rgba(0,150,255,0.2)",
               transition: "all 0.3s ease",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              width: 48,
-              height: 48,
+              width: "clamp(36px, calc(24px + 1.65vw), 68px)",
+              height: "clamp(36px, calc(24px + 1.65vw), 68px)",
             }}
             aria-label="Guide"
           >
@@ -261,10 +261,10 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
       <div
         style={{
           position: "fixed",
-          top: expanded ? 0 : "calc(50% - 17.5vh)",
-          left: expanded ? 0 : "calc(50% - 22.5vw)",
-          width: expanded ? "100vw" : "45vw",
-          height: expanded ? "100vh" : "35vh",
+          top: expanded ? 0 : "calc(50% - min(17.5vh, 25vw))",
+          left: expanded ? 0 : "calc(50% - min(40vw, 45vh))",
+          width: expanded ? "100vw" : "min(80vw, 90vh)",
+          height: expanded ? "100vh" : "min(35vh, 50vw)",
           zIndex: 40,
           display: "flex",
           alignItems: "center",
@@ -315,7 +315,7 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
                 top: -20,
                 left: "50%",
                 transform: "translateX(-50%)",
-                width: 120,
+                width: "clamp(70px, calc(40px + 5.5vw), 180px)",
                 height: 20,
                 background: "linear-gradient(180deg, #0d3a5c 0%, #06263a 100%)",
                 border: "2px solid rgba(102,210,255,0.6)",
@@ -344,7 +344,7 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
                 bottom: -20,
                 left: "50%",
                 transform: "translateX(-50%)",
-                width: 120,
+                width: "clamp(70px, calc(40px + 5.5vw), 180px)",
                 height: 20,
                 background: "linear-gradient(0deg, #0d3a5c 0%, #06263a 100%)",
                 border: "2px solid rgba(102,210,255,0.6)",
@@ -374,14 +374,14 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
             <div
               style={{
                 pointerEvents: "none",
-                padding: 16,
+                padding: "clamp(8px, calc(6px + 0.7vw), 28px)",
                 textAlign: "center",
                 width: "100%",
               }}
             >
               <div
                 style={{
-                  fontSize: 34,
+                  fontSize: "clamp(18px, calc(12px + 1.5vw), 56px)",
                   color: "var(--accent)",
                   letterSpacing: "0.08em",
                   textShadow: "0 4px 12px rgba(0,150,255,0.08)",
@@ -393,7 +393,7 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
               </div>
               <div
                 style={{
-                  fontSize: 18,
+                  fontSize: "clamp(12px, calc(8px + 0.7vw), 30px)",
                   color: "rgba(102,210,255,0.85)",
                   fontWeight: 500,
                   letterSpacing: "0.03em",

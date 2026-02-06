@@ -23,15 +23,15 @@ export default function LetterOverlay({ title, children, onClose }) {
         onClick={(e) => e.stopPropagation()}
         style={{
           position: "relative",
-          width: "min(560px, 85vw)",
-          maxHeight: "78vh",
+          width: "min(560px, 90vw)",
+          maxHeight: "80vh",
           background: `
             radial-gradient(ellipse at 20% 50%, rgba(210,190,150,0.15) 0%, transparent 70%),
             radial-gradient(ellipse at 80% 30%, rgba(200,180,140,0.1) 0%, transparent 60%),
             linear-gradient(170deg, #f5ede0 0%, #ebe3d1 40%, #e2d6c0 100%)
           `,
-          borderRadius: 6,
-          padding: "48px 44px 40px",
+          borderRadius: "clamp(4px, calc(3px + 0.2vw), 10px)",
+          padding: "clamp(24px, calc(16px + 2.2vw), 80px) clamp(20px, calc(14px + 2vw), 72px) clamp(20px, calc(14px + 1.8vw), 68px)",
           boxShadow: `
             0 2px 0 #d4c8a8,
             0 4px 0 #c8bb9e,
@@ -48,8 +48,8 @@ export default function LetterOverlay({ title, children, onClose }) {
             position: "absolute",
             top: 20,
             right: 24,
-            width: 48,
-            height: 56,
+            width: "clamp(36px, calc(24px + 2vw), 72px)",
+            height: "clamp(42px, calc(28px + 2.4vw), 84px)",
             border: "2px dashed rgba(160,120,80,0.25)",
             borderRadius: 3,
             display: "flex",
@@ -57,22 +57,22 @@ export default function LetterOverlay({ title, children, onClose }) {
             justifyContent: "center",
           }}
         >
-          <span style={{ fontSize: 22, opacity: 0.3 }}>♥</span>
+          <span style={{ fontSize: "clamp(16px, calc(10px + 0.8vw), 36px)", opacity: 0.3 }}>♥</span>
         </div>
 
         {/* Title / addressee */}
         <h2
           style={{
             fontFamily: "'Georgia', 'Times New Roman', serif",
-            fontSize: 20,
+            fontSize: "clamp(16px, calc(10px + 0.7vw), 34px)",
             fontWeight: 400,
             fontStyle: "italic",
             color: "#5a4635",
-            marginBottom: 28,
+            marginBottom: "clamp(16px, calc(10px + 1vw), 46px)",
             letterSpacing: "0.01em",
             lineHeight: 1.4,
             borderBottom: "1px solid rgba(160,130,90,0.25)",
-            paddingBottom: 16,
+            paddingBottom: "clamp(10px, calc(6px + 0.7vw), 28px)",
           }}
         >
           {title}
@@ -82,7 +82,7 @@ export default function LetterOverlay({ title, children, onClose }) {
         <div
           style={{
             fontFamily: "'Georgia', 'Times New Roman', serif",
-            fontSize: 15,
+            fontSize: "clamp(13px, calc(8px + 0.55vw), 26px)",
             lineHeight: 1.9,
             color: "#4a3d30",
             whiteSpace: "pre-wrap",
@@ -94,9 +94,9 @@ export default function LetterOverlay({ title, children, onClose }) {
         {/* Close hint */}
         <p
           style={{
-            marginTop: 32,
+            marginTop: "clamp(18px, calc(12px + 1.25vw), 52px)",
             textAlign: "center",
-            fontSize: 12,
+            fontSize: "clamp(10px, calc(6px + 0.42vw), 20px)",
             color: "rgba(120,100,70,0.4)",
             fontStyle: "italic",
             fontFamily: "'Georgia', serif",

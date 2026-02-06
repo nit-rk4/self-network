@@ -57,7 +57,7 @@ export default function InsecurityWords({ visible }) {
             position: "absolute",
             left: `${wp.x}%`,
             top: `${wp.y}%`,
-            fontSize: `${wp.fontSize}px`,
+            fontSize: `clamp(${wp.fontSize * 0.6}px, calc(${(wp.fontSize * 0.35).toFixed(1)}px + ${(wp.fontSize * 0.045).toFixed(3)}vw), ${wp.fontSize * 1.6}px)`,
             color: `rgba(${SHADOW_COLOR}, 0.18)`,
             fontWeight: 600,
             whiteSpace: "nowrap",

@@ -40,8 +40,8 @@ export default function TitleScreen({ onComplete }) {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        gap: 20,
-        padding: 32,
+        gap: "clamp(12px, calc(8px + 0.8vw), 32px)",
+        padding: "clamp(16px, calc(12px + 1.3vw), 52px)",
       }}
     >
       {/* Title phase */}
@@ -51,7 +51,7 @@ export default function TitleScreen({ onComplete }) {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: 20,
+          gap: "clamp(12px, calc(8px + 0.8vw), 32px)",
           opacity: titleVisible ? 1 : 0,
           transition: "opacity 1s ease",
           pointerEvents: "none",
@@ -60,7 +60,7 @@ export default function TitleScreen({ onComplete }) {
         <h1
           className="pixel-text"
           style={{
-            fontSize: 28,
+            fontSize: "clamp(18px, calc(14px + 1vw), 48px)",
             color: "var(--accent)",
             letterSpacing: "0.08em",
             textShadow: "0 0 30px rgba(102,210,255,0.3)",
@@ -74,7 +74,7 @@ export default function TitleScreen({ onComplete }) {
 
         <p
           style={{
-            fontSize: 16,
+            fontSize: "clamp(13px, calc(8px + 0.55vw), 28px)",
             color: "rgba(102,210,255,0.7)",
             fontStyle: "italic",
             letterSpacing: "0.03em",
@@ -88,7 +88,7 @@ export default function TitleScreen({ onComplete }) {
 
         <div
           style={{
-            marginTop: 32,
+            marginTop: "clamp(16px, calc(12px + 1.3vw), 52px)",
             textAlign: "center",
             opacity: step >= 3 ? 1 : 0,
             transform: step >= 3 ? "translateY(0)" : "translateY(10px)",
@@ -97,7 +97,7 @@ export default function TitleScreen({ onComplete }) {
         >
           <p
             style={{
-              fontSize: 13,
+              fontSize: "clamp(11px, calc(7px + 0.42vw), 22px)",
               color: "rgba(102,210,255,0.5)",
               margin: 0,
               lineHeight: 1.8,
@@ -107,7 +107,7 @@ export default function TitleScreen({ onComplete }) {
           </p>
           <p
             style={{
-              fontSize: 15,
+              fontSize: "clamp(12px, calc(7px + 0.55vw), 26px)",
               color: "rgba(102,210,255,0.75)",
               margin: 0,
               fontWeight: 600,
@@ -118,7 +118,7 @@ export default function TitleScreen({ onComplete }) {
           </p>
           <p
             style={{
-              fontSize: 13,
+              fontSize: "clamp(11px, calc(7px + 0.42vw), 22px)",
               color: "rgba(102,210,255,0.45)",
               margin: "4px 0 0",
             }}
@@ -132,20 +132,20 @@ export default function TitleScreen({ onComplete }) {
       <div
         style={{
           position: "absolute",
-          maxWidth: 600,
+          maxWidth: "min(600px, 90vw)",
           display: "flex",
           flexDirection: "column",
-          gap: 24,
+          gap: "clamp(14px, calc(10px + 1vw), 38px)",
           opacity: messagePhase ? 1 : 0,
           transition: "opacity 1s ease",
-          padding: 32,
+          padding: "clamp(16px, calc(12px + 1.3vw), 52px)",
         }}
       >
         {messageParagraphs.map((text, i) => (
           <p
             key={i}
             style={{
-              fontSize: 15,
+              fontSize: "clamp(12px, calc(7px + 0.55vw), 26px)",
               lineHeight: 1.8,
               color: "rgba(102,210,255,0.8)",
               margin: 0,

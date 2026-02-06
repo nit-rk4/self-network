@@ -192,9 +192,9 @@ export default function ForgivenessOverlay({ onClose }) {
           <p
             style={{
               textAlign: "center",
-              fontSize: 14,
+              fontSize: "clamp(12px, calc(7px + 0.48vw), 24px)",
               color: `rgba(${FORGIVE_COLOR},0.5)`,
-              marginBottom: 20,
+              marginBottom: "clamp(12px, calc(8px + 0.8vw), 36px)",
               fontStyle: "italic",
               fontFamily: "'Georgia', 'Times New Roman', serif",
             }}
@@ -237,9 +237,9 @@ export default function ForgivenessOverlay({ onClose }) {
           <p
             style={{
               textAlign: "center",
-              fontSize: 11,
+              fontSize: "clamp(9px, calc(5px + 0.4vw), 18px)",
               color: `rgba(${FORGIVE_COLOR},0.3)`,
-              marginTop: 12,
+              marginTop: "clamp(8px, calc(5px + 0.48vw), 20px)",
               fontStyle: "italic",
             }}
           >
