@@ -6,7 +6,7 @@ const insecurityWords = [
   "not enough", "too quiet", "awkward", "boring", "overthinking",
   "not smart enough", "too slow", "untalented", "invisible", "forgettable",
   "too sensitive", "not pretty enough", "weird", "left out", "burden",
-  "not good enough", "unlovable", "too much", "failure", "disappointing",
+  "not good enough", "unlovable", "failure", "disappointing",
   "procrastinator", "lazy", "indecisive", "flawed", "not interesting",
   "impatient", "self-doubting", "clingy", "clumsy", "unfocused"
 ];
