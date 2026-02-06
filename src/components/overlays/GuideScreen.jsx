@@ -26,11 +26,7 @@ const guideItems = [
     desc: "Covers forgiveness I seek, give, and extend to myself.",
     letters: "Letter J",
   },
-  {
-    node: "INNER VOICE",
-    desc: "Explores feelings and experiences that are hard to accept, including a short poem/story.",
-    letters: "Letters G, H, and L",
-  },
+
 ];
 
 export default function GuideScreen({ onClose }) {
@@ -147,6 +143,42 @@ export default function GuideScreen({ onClose }) {
               </p>
             </div>
           ))}
+        </div>
+
+        {/* Hint */}
+        <div
+          style={{
+            marginTop: 24,
+            padding: "16px 20px",
+            background: "rgba(102,210,255,0.04)",
+            border: "1px dashed rgba(102,210,255,0.25)",
+            borderRadius: 10,
+            textAlign: "center",
+          }}
+        >
+          <p
+            className="pixel-text"
+            style={{
+              fontSize: 10,
+              color: "rgba(102,210,255,0.45)",
+              margin: 0,
+              marginBottom: 6,
+              letterSpacing: "0.12em",
+            }}
+          >
+            ??? &nbsp; ??? &nbsp; ???
+          </p>
+          <p
+            style={{
+              fontSize: 13,
+              color: "rgba(102,210,255,0.55)",
+              margin: 0,
+              lineHeight: 1.6,
+              fontStyle: "italic",
+            }}
+          >
+            There is something else here — but it won't reveal itself until every node has been visited. Leave no stone unturned.
+          </p>
         </div>
       </div>
     </div>

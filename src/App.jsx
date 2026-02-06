@@ -9,7 +9,6 @@ const innerNodes = [
   { label: "IDENTITY",    color: "160,180,200" },   // silver — neutral, self
   { label: "STRENGTHS",   color: "255,200,60" },    // gold — confidence, power
   { label: "SHADOWS",     color: "160,100,220" },   // dark purple — hidden depths
-  { label: "INNER VOICE", color: "80,200,255" },    // cyan — clarity, thought
   { label: "GROWTH",      color: "100,220,140" },   // green — renewal, progress
   { label: "FORGIVENESS", color: "255,140,180" },   // pink — compassion, healing
 ];

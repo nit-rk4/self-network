@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { FiArrowLeft, FiHelpCircle } from "react-icons/fi";
 import InnerNodes from "./InnerNodes";
+import AbyssDoor from "./AbyssDoor";
 import IdentityOverlay from "../overlays/IdentityOverlay";
 import StrengthOverlay from "../overlays/StrengthOverlay";
 import ShadowOverlay from "../overlays/ShadowOverlay";
 import GrowthOverlay from "../overlays/GrowthOverlay";
 import ForgivenessOverlay from "../overlays/ForgivenessOverlay";
+import AbyssEntryOverlay from "../overlays/AbyssEntryOverlay";
 import InsecurityWords from "../effects/InsecurityWords";
 import GuideScreen from "../overlays/GuideScreen";
+import AbyssScreen from "../screens/AbyssScreen";
 
 export default function RootNode({ label, childrenNodes = [], outerBgGif, innerBgGif }) {
   const [expanded, setExpanded] = useState(false);
@@ -16,7 +19,19 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
   const [activeNode, setActiveNode] = useState(null);
   const [shadowRevealed, setShadowRevealed] = useState(false);
 
+  // Abyss tracking
+  const [visitedNodes, setVisitedNodes] = useState(new Set());
+  const [showAbyssEntry, setShowAbyssEntry] = useState(false);
+  const [abyssTransitioning, setAbyssTransitioning] = useState(false);
+  const [showAbyss, setShowAbyss] = useState(false);
+
+  const allNodeLabels = childrenNodes.map((n) => n.label);
+  const allVisited = allNodeLabels.length > 0 && allNodeLabels.every((l) => visitedNodes.has(l));
+
   const handleNodeClick = (node) => {
+    // Track visited nodes
+    setVisitedNodes((prev) => new Set(prev).add(node.label));
+
     if (node.label === "SHADOWS") {
       setShadowRevealed((prev) => !prev);
       if (shadowRevealed) return; // closing — don't open overlay
@@ -25,6 +40,20 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
   };
 
   const closeOverlay = () => setActiveNode(null);
+
+  const handleAbyssEnter = useCallback(() => {
+    setShowAbyssEntry(false);
+    setAbyssTransitioning(true);
+    // After expansion animation completes, show the actual Abyss
+    setTimeout(() => {
+      setShowAbyss(true);
+      setAbyssTransitioning(false);
+    }, 1200);
+  }, []);
+
+  const handleAbyssBack = useCallback(() => {
+    setShowAbyss(false);
+  }, []);
 
   return (
     <>
@@ -397,6 +426,36 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
 
       {/* Guide overlay */}
       {showGuide && <GuideScreen onClose={() => setShowGuide(false)} />}
+
+      {/* Abyss door - appears when all nodes visited */}
+      {expanded && allVisited && !showAbyss && !abyssTransitioning && !showAbyssEntry && (
+        <AbyssDoor onClick={() => setShowAbyssEntry(true)} />
+      )}
+
+      {/* Abyss entry overlay */}
+      {showAbyssEntry && (
+        <AbyssEntryOverlay
+          onClose={() => setShowAbyssEntry(false)}
+          onEnter={handleAbyssEnter}
+        />
+      )}
+
+      {/* Abyss expansion transition */}
+      {abyssTransitioning && (
+        <div
+          className="abyss-expand-transition"
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 65,
+            background: "radial-gradient(ellipse at 50% 40%, #0c0814 0%, #060410 40%, #020108 100%)",
+            pointerEvents: "none",
+          }}
+        />
+      )}
+
+      {/* Abyss screen */}
+      {showAbyss && <AbyssScreen onBack={handleAbyssBack} />}
     </>
   );
 }

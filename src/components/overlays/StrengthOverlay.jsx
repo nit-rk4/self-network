@@ -12,7 +12,7 @@ const pillars = [
   { word: "Piano", detail: "I can read sheet music and express my emotions through music." },
   { word: "Singing", detail: "I can distinguish tunes and harmonize with others, often as an alto." },
   { word: "Gaming", detail: "I enjoy gaming and tackling challenges, even casually." },
-  { word: "Exams", detail: "I perform well on exams and can retain knowledge effectively." },
+  { word: "Studying", detail: "I perform well on exams and can retain knowledge effectively." },
 ];
 
 const COLLAPSED_H = 55;
@@ -62,7 +62,7 @@ function Pillar({ word, detail }) {
         }}
       />
 
-      {/* Shaft — this grows */}
+      {/* Shaft */}
       <div
         style={{
           width: SHAFT_WIDTH,
@@ -79,7 +79,7 @@ function Pillar({ word, detail }) {
           position: "relative",
         }}
       >
-        {/* Vertical fluting lines on shaft */}
+        {/* Vertical lines on shaft */}
         {[25, 50, 75].map((pct) => (
           <div
             key={pct}
