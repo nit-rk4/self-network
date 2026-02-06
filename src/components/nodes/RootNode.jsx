@@ -4,6 +4,7 @@ import InnerNodes from "./InnerNodes";
 import IdentityOverlay from "../overlays/IdentityOverlay";
 import StrengthOverlay from "../overlays/StrengthOverlay";
 import ShadowOverlay from "../overlays/ShadowOverlay";
+import GrowthOverlay from "../overlays/GrowthOverlay";
 import InsecurityWords from "../effects/InsecurityWords";
 import GuideScreen from "../overlays/GuideScreen";
 
@@ -390,6 +391,7 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
       {activeNode === "IDENTITY" && <IdentityOverlay onClose={closeOverlay} />}
       {activeNode === "STRENGTHS" && <StrengthOverlay onClose={closeOverlay} />}
       {activeNode === "SHADOWS" && <ShadowOverlay onClose={closeOverlay} />}
+      {activeNode === "GROWTH" && <GrowthOverlay onClose={closeOverlay} />}
 
       {/* Guide overlay */}
       {showGuide && <GuideScreen onClose={() => setShowGuide(false)} />}
