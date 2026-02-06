@@ -4,7 +4,7 @@ export default function BlinkingWords({
     words = [
         "daughter", "friend", "sister", "Baptist", "Christian", 
         "student", "pianist", "scholar", "gamer", "believer", "individual", "dreamer",
-        "reader", "movie watcher", "music lover", "dog person", "movie lover",
+        "reader", "movie watcher", "music lover", "dog person", 
         "cousin", "niece", "aunt", "granddaughter", "grandmother",
         "ambivert", "optimist", "complex", "programmer", "art lover", "coffee enthusiast", "night owl"
     ] }) {
