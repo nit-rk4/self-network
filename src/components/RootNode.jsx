@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { FiArrowLeft } from "react-icons/fi";
+import { FiArrowLeft, FiHelpCircle } from "react-icons/fi";
 import InnerNodes from "./InnerNodes";
 import IdentityOverlay from "./IdentityOverlay";
+import GuideScreen from "./GuideScreen";
 
 export default function RootNode({ label, childrenNodes = [], outerBgGif, innerBgGif }) {
   const [expanded, setExpanded] = useState(false);
+  const [showGuide, setShowGuide] = useState(false);
 
   const [activeNode, setActiveNode] = useState(null);
 
@@ -146,6 +148,7 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
 )}
       {/* Back arrow button - only shows when expanded */}
       {expanded && (
+        <>
           <button
             onClick={() => setExpanded(false)}
             style={{
@@ -172,6 +175,34 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
           >
             <FiArrowLeft />
           </button>
+          
+          <button
+            onClick={() => setShowGuide(true)}
+            style={{
+              position: "fixed",
+              top: 30,
+              left: 90,
+              zIndex: 50,
+              background: "rgba(6, 38, 58, 0.7)",
+              border: "1px solid rgba(102,210,255,0.3)",
+              borderRadius: "50%",
+              padding: 10,
+              color: "var(--accent)",
+              fontSize: 28,
+              cursor: "pointer",
+              boxShadow: "0 0 20px rgba(102,210,255,0.4), 0 0 40px rgba(0,150,255,0.2)",
+              transition: "all 0.3s ease",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: 48,
+              height: 48,
+            }}
+            aria-label="Guide"
+          >
+            <FiHelpCircle />
+          </button>
+        </>
       )}
 
       {/* Clicking outside closes the panel */}
@@ -346,6 +377,9 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
 
       {/* Node overlays */}
       {activeNode === "IDENTITY" && <IdentityOverlay onClose={closeOverlay} />}
+
+      {/* Guide overlay */}
+      {showGuide && <GuideScreen onClose={() => setShowGuide(false)} />}
     </>
   );
 }
