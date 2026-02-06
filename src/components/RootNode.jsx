@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FiArrowLeft, FiHelpCircle } from "react-icons/fi";
 import InnerNodes from "./InnerNodes";
 import IdentityOverlay from "./IdentityOverlay";
+import StrengthOverlay from "./StrengthOverlay";
 import GuideScreen from "./GuideScreen";
 
 export default function RootNode({ label, childrenNodes = [], outerBgGif, innerBgGif }) {
@@ -377,6 +378,7 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
 
       {/* Node overlays */}
       {activeNode === "IDENTITY" && <IdentityOverlay onClose={closeOverlay} />}
+      {activeNode === "STRENGTHS" && <StrengthOverlay onClose={closeOverlay} />}
 
       {/* Guide overlay */}
       {showGuide && <GuideScreen onClose={() => setShowGuide(false)} />}

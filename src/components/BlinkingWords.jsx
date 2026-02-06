@@ -59,7 +59,7 @@ export default function BlinkingWords({
             left: `${wp.x}%`,
             top: `${wp.y}%`,
             fontSize: `${wp.fontSize}px`,
-            color: "rgba(102, 210, 255, 0.15)",
+            color: "rgba(102, 210, 255, 0.05)",
             fontWeight: 600,
             whiteSpace: "nowrap",
             userSelect: "none",

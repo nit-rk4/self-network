@@ -1,7 +1,7 @@
 import { useMemo, useRef, useEffect, useCallback, forwardRef } from "react";
 import BlinkingWords from "./BlinkingWords";
 
-const InnerNode = forwardRef(({ label, delay, onClick }, ref) => (
+const InnerNode = forwardRef(({ label, delay, onClick, color = "102,210,255" }, ref) => (
   <button
     ref={ref}
     className="inner-node pixel-text"
@@ -11,15 +11,15 @@ const InnerNode = forwardRef(({ label, delay, onClick }, ref) => (
       left: 0,
       top: 0,
       transform: "translate(-50%,-50%)",
-      background: "#021018",
-      border: "1px solid rgba(102,210,255,0.14)",
-      color: "var(--accent)",
+      background: "#0a1520",
+      border: `1px solid rgba(${color},0.25)`,
+      color: `rgb(${color})`,
       padding: "18px 28px",
       borderRadius: 10,
       minWidth: 180,
       fontSize: 13,
       fontWeight: 800,
-      boxShadow: "0 10px 30px rgba(0,150,255,0.06)",
+      boxShadow: `0 0 18px rgba(${color},0.1), 0 10px 30px rgba(${color},0.06)`,
       opacity: 0,
       cursor: "pointer",
       zIndex: 2,
@@ -199,6 +199,7 @@ export default function InnerNodes({ nodes, onNodeClick }) {
           key={i}
           ref={(el) => (nodeRefs.current[i] = el)}
           label={node.label}
+          color={node.color}
           delay={i * 60}
           onClick={(e) => {
             e.stopPropagation();

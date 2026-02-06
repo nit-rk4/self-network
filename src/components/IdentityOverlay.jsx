@@ -1,9 +1,11 @@
 import NodeOverlay from "./NodeOverlay";
 import identityPhoto from "../assets/image.jpg";
 
+const IDENTITY_COLOR = "160,180,200";
+
 export default function IdentityOverlay({ onClose }) {
   return (
-    <NodeOverlay title="IDENTITY" onClose={onClose}>
+    <NodeOverlay title="IDENTITY" onClose={onClose} color={IDENTITY_COLOR}>
       <div
         style={{
           display: "flex",
@@ -27,9 +29,9 @@ export default function IdentityOverlay({ onClose }) {
               width: "100%",
               aspectRatio: "3 / 4",
               maxHeight: 360,
-              border: "1px solid rgba(102,210,255,0.2)",
+              border: `1px solid rgba(${IDENTITY_COLOR},0.2)`,
               borderRadius: 12,
-              background: "rgba(102,210,255,0.03)",
+              background: `rgba(${IDENTITY_COLOR},0.03)`,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -39,7 +41,7 @@ export default function IdentityOverlay({ onClose }) {
             {/* Replace the placeholder below with an <img> tag */}
             <span
               style={{
-                color: "rgba(102,210,255,0.3)",
+                color: `rgba(${IDENTITY_COLOR},0.3)`,
                 fontSize: 13,
                 textAlign: "center",
                 padding: 16,
@@ -66,7 +68,7 @@ export default function IdentityOverlay({ onClose }) {
               className="pixel-text"
               style={{
                 fontSize: 10,
-                color: "var(--accent)",
+                color: `rgb(${IDENTITY_COLOR})`,
                 marginBottom: 12,
                 opacity: 0.8,
               }}
@@ -77,7 +79,7 @@ export default function IdentityOverlay({ onClose }) {
               style={{
                 fontSize: 15,
                 lineHeight: 1.7,
-                color: "rgba(102,210,255,0.85)",
+                color: `rgba(${IDENTITY_COLOR},0.85)`,
                 margin: 0,
               }}
             >
@@ -88,7 +90,7 @@ export default function IdentityOverlay({ onClose }) {
               style={{
                 fontSize: 15,
                 lineHeight: 1.7,
-                color: "rgba(102,210,255,0.85)",
+                color: `rgba(${IDENTITY_COLOR},0.85)`,
                 margin: 0,
               }}
             >
@@ -100,7 +102,7 @@ export default function IdentityOverlay({ onClose }) {
           <div
             style={{
               marginTop: "auto",
-              borderLeft: "2px solid rgba(102,210,255,0.3)",
+              borderLeft: `2px solid rgba(${IDENTITY_COLOR},0.3)`,
               paddingLeft: 16,
             }}
           >
@@ -109,7 +111,7 @@ export default function IdentityOverlay({ onClose }) {
                 fontSize: 14,
                 fontStyle: "italic",
                 lineHeight: 1.6,
-                color: "rgba(102,210,255,0.7)",
+                color: `rgba(${IDENTITY_COLOR},0.7)`,
                 margin: 0,
               }}
             >
@@ -118,7 +120,7 @@ export default function IdentityOverlay({ onClose }) {
             <span
               style={{
                 fontSize: 12,
-                color: "rgba(102,210,255,0.4)",
+                color: `rgba(${IDENTITY_COLOR},0.4)`,
                 marginTop: 6,
                 display: "block",
               }}

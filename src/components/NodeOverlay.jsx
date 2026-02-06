@@ -1,11 +1,15 @@
 import { FiX } from "react-icons/fi";
 
-export default function NodeOverlay({ title, onClose, children }) {
+export default function NodeOverlay({ title, onClose, children, color = "102,210,255" }) {
   return (
     <div className="overlay-backdrop" onClick={onClose}>
       <div
         className="overlay-panel"
         onClick={(e) => e.stopPropagation()}
+        style={{
+          borderColor: `rgba(${color},0.25)`,
+          boxShadow: `0 0 40px rgba(${color},0.12), 0 20px 60px rgba(0,0,0,0.5)`,
+        }}
       >
         {/* Header */}
         <div
@@ -20,7 +24,7 @@ export default function NodeOverlay({ title, onClose, children }) {
             className="pixel-text"
             style={{
               fontSize: 14,
-              color: "var(--accent)",
+              color: `rgb(${color})`,
               margin: 0,
               letterSpacing: "0.05em",
             }}
@@ -30,15 +34,15 @@ export default function NodeOverlay({ title, onClose, children }) {
           <button
             onClick={onClose}
             style={{
-              background: "rgba(102,210,255,0.08)",
-              border: "1px solid rgba(102,210,255,0.2)",
+              background: `rgba(${color},0.08)`,
+              border: `1px solid rgba(${color},0.2)`,
               borderRadius: "50%",
               width: 36,
               height: 36,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              color: "var(--accent)",
+              color: `rgb(${color})`,
               fontSize: 18,
               cursor: "pointer",
               transition: "all 0.2s ease",
