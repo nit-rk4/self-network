@@ -221,16 +221,16 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
       {/* Main panel container with border cutouts */}
       <div
         style={{
-          position: expanded ? "fixed" : "absolute",
-          top: expanded ? 0 : "50%",
-          left: expanded ? 0 : "50%",
-          transform: expanded ? "none" : "translate(-50%, -50%)",
+          position: "fixed",
+          top: expanded ? 0 : "calc(50% - 17.5vh)",
+          left: expanded ? 0 : "calc(50% - 22.5vw)",
           width: expanded ? "100vw" : "45vw",
           height: expanded ? "100vh" : "35vh",
           zIndex: 40,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          transition: "all 0.7s cubic-bezier(.2,.9,.2,1)",
         }}
       >
         {/* The actual panel with border - has gaps for ports */}
