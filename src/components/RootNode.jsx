@@ -3,6 +3,8 @@ import { FiArrowLeft, FiHelpCircle } from "react-icons/fi";
 import InnerNodes from "./InnerNodes";
 import IdentityOverlay from "./IdentityOverlay";
 import StrengthOverlay from "./StrengthOverlay";
+import ShadowOverlay from "./ShadowOverlay";
+import InsecurityWords from "./InsecurityWords";
 import GuideScreen from "./GuideScreen";
 
 export default function RootNode({ label, childrenNodes = [], outerBgGif, innerBgGif }) {
@@ -10,8 +12,13 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
   const [showGuide, setShowGuide] = useState(false);
 
   const [activeNode, setActiveNode] = useState(null);
+  const [shadowRevealed, setShadowRevealed] = useState(false);
 
   const handleNodeClick = (node) => {
+    if (node.label === "SHADOWS") {
+      setShadowRevealed((prev) => !prev);
+      if (shadowRevealed) return; // closing — don't open overlay
+    }
     setActiveNode(node.label);
   };
 
@@ -371,7 +378,10 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
 
           {/* When expanded, show inner nodes using the new component */}
           {expanded && (
-            <InnerNodes nodes={childrenNodes} onNodeClick={handleNodeClick} />
+            <>
+              <InsecurityWords visible={shadowRevealed} />
+              <InnerNodes nodes={childrenNodes} onNodeClick={handleNodeClick} shadowRevealed={shadowRevealed} />
+            </>
           )}
         </div>
       </div>
@@ -379,6 +389,7 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
       {/* Node overlays */}
       {activeNode === "IDENTITY" && <IdentityOverlay onClose={closeOverlay} />}
       {activeNode === "STRENGTHS" && <StrengthOverlay onClose={closeOverlay} />}
+      {activeNode === "SHADOWS" && <ShadowOverlay onClose={closeOverlay} />}
 
       {/* Guide overlay */}
       {showGuide && <GuideScreen onClose={() => setShowGuide(false)} />}

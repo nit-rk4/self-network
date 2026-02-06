@@ -3,10 +3,10 @@ import { useMemo } from "react";
 export default function BlinkingWords({ 
     words = [
         "daughter", "friend", "sister", "Baptist", "Christian", 
-        "student", "pianist", "scholar", "gamer", "believer", "person", "dreamer",
-        "reader", "movie watcher", "music lover", "dog person", "dreamer", "overthinker",
+        "student", "pianist", "scholar", "gamer", "believer", "individual", "dreamer",
+        "reader", "movie watcher", "music lover", "dog person", "movie lover",
         "cousin", "niece", "aunt", "granddaughter", "grandmother",
-        "ambivert", "pessimist", "complex", "programmer", "art lover", "coffee enthusiast", "night owl"
+        "ambivert", "optimist", "complex", "programmer", "art lover", "coffee enthusiast", "night owl"
     ] }) {
   const wordPositions = useMemo(() => {
     const minWords = 60;
