@@ -43,7 +43,7 @@ If forgiveness never comes, I’ll still carry the lesson.
 You mattered too much for me to forget that.`,
   },
   self: {
-    title: "To me",
+    title: "To me,",
     body: `You tried your best with what you knew at the time.
 You don’t have to keep punishing yourself for that.
 
