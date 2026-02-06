@@ -176,3 +176,143 @@ body {
 .abyss-expand-transition {
   animation: abyssExpand 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
+
+/* Abyss floating musical notes — dance & sway */
+@keyframes abyssNoteFloat {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg) scale(0.8);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  25% {
+    transform: translateY(-25vh) translateX(18px) rotate(10deg) scale(1);
+  }
+  50% {
+    transform: translateY(-50vh) translateX(-14px) rotate(-8deg) scale(1.05);
+    opacity: 0.7;
+  }
+  75% {
+    transform: translateY(-75vh) translateX(12px) rotate(15deg) scale(0.95);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-105vh) translateX(-8px) rotate(20deg) scale(0.8);
+    opacity: 0;
+  }
+}
+
+.abyss-floating-note {
+  animation: abyssNoteFloat 12s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Abyss surface glow pulse */
+@keyframes abyssSurfaceGlow {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.abyss-surface-glow {
+  animation: abyssSurfaceGlow 6s ease-in-out infinite;
+}
+
+/* Abyss section 2: slipping particles falling down */
+@keyframes abyssSlipFall {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  40% {
+    transform: translateY(40vh) translateX(8px) scale(0.9);
+    opacity: 0.6;
+  }
+  70% {
+    transform: translateY(70vh) translateX(-6px) scale(0.7);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(110vh) translateX(4px) scale(0.4);
+    opacity: 0;
+  }
+}
+
+.abyss-slip-particle {
+  animation: abyssSlipFall 8s ease-in infinite;
+  will-change: transform, opacity;
+}
+
+/* Abyss section 2: subtle screen tremor */
+@keyframes abyssTremor {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-0.5px, 0.3px); }
+  20% { transform: translate(0.4px, -0.5px); }
+  30% { transform: translate(-0.3px, 0.2px); }
+  40% { transform: translate(0.5px, 0.4px); }
+  50% { transform: translate(-0.2px, -0.3px); }
+  60% { transform: translate(0.3px, 0.5px); }
+  70% { transform: translate(-0.4px, -0.2px); }
+  80% { transform: translate(0.2px, 0.3px); }
+  90% { transform: translate(-0.3px, -0.4px); }
+}
+
+.abyss-pressure-tremor {
+  animation: abyssTremor 3s ease-in-out infinite;
+}
+
+/* Abyss section 2: text tremble for pressure lines */
+@keyframes abyssTextTremble {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-1px); }
+  30% { transform: translateX(0.8px); }
+  45% { transform: translateX(-0.6px); }
+  60% { transform: translateX(1px); }
+  75% { transform: translateX(-0.5px); }
+  90% { transform: translateX(0.7px); }
+}
+
+.abyss-tremble {
+  animation: abyssTextTremble 2.5s ease-in-out infinite;
+}
+
+/* Abyss section 2: difficulty word bubbles — slow drift & pulse */
+@keyframes abyssBubbleDrift {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  25% {
+    transform: translateY(-8px) translateX(6px) scale(1.02);
+  }
+  50% {
+    transform: translateY(4px) translateX(-8px) scale(0.98);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateY(-6px) translateX(10px) scale(1.01);
+    opacity: 1;
+  }
+  85% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0;
+  }
+}
+
+.abyss-difficulty-bubble {
+  animation: abyssBubbleDrift 12s ease-in-out infinite;
+  will-change: transform, opacity;
+}
