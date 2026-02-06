@@ -8,22 +8,53 @@ const FORGIVE_COLOR = "255,140,180";
 
 const letters = {
   forgive: {
-    title: "To whom I should forgive",
-    body: `Write your letter here...
+    title: "To a former friend,",
+    body: `You were once important to me,
+and I think that’s why this stayed heavy for so long.
 
-This is where you share your thoughts about forgiveness toward someone.`,
+I forgive you for the chaos you brought with you,
+for the weight you placed on us without knowing how to carry your own.
+I forgive the apologies that never quite arrived,
+the way you tried to fix things without truly facing them.
+
+I forgive you for the moments that pushed me past what I could handle.
+There was a point where care turned into fear,
+and I had to choose myself instead.
+
+This forgiveness isn’t an invitation back.
+It’s not a reopening of doors I closed for a reason.
+It’s simply me letting go of the anger I no longer want to keep.
+
+I hope you find peace,
+even if it no longer includes me.`,
   },
   forgiveME: {
-    title: "To whom I wish would forgive me",
-    body: `Write your letter here...
+    title: "To my bestfriend,",
+    body: `You cross my mind more often than I let on.
+Mostly in quiet moments, when I can’t distract myself.
 
-This is where you express what you wish you could say to someone whose forgiveness you seek.`,
+I know I broke something fragile between us.
+I know saying sorry doesn’t undo what I did.
+
+I wish you could forgive me—not to erase what happened,
+but to know that I understand now what I failed to protect then.
+
+If forgiveness never comes, I’ll still carry the lesson.
+You mattered too much for me to forget that.`,
   },
   self: {
-    title: "For me",
-    body: `Write your letter here...
+    title: "To me",
+    body: `You tried your best with what you knew at the time.
+You don’t have to keep punishing yourself for that.
 
-A letter to yourself — the hardest and most important kind of forgiveness.`,
+Forgive yourself for not being who you thought you had to be,
+for chasing an image you couldn’t keep alive forever.
+
+Forgive yourself for hesitating, for choosing comfort,
+for letting fear decide when you didn’t know how else to cope.
+
+You’re allowed to grow without hating who you used to be.
+You’re allowed to move forward gently.`,
   },
 };
 
