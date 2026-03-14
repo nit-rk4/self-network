@@ -55,6 +55,10 @@ const relationshipRoots = [
   },
 ];
 
+const EDGE_THRESHOLD_RATIO = 0.12;
+const MAX_EDGE_THRESHOLD_PX = 120;
+const TRANSITION_DURATION_MS = 700;
+
 export default function RootNode({ label, childrenNodes = [], outerBgGif, innerBgGif }) {
   const [expanded, setExpanded] = useState(false);
   const [showGuide, setShowGuide] = useState(false);
@@ -121,12 +125,12 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
       }
       return next;
     });
-    setTimeout(() => setHoverSide(null), 600);
+    setTimeout(() => setHoverSide(null), TRANSITION_DURATION_MS);
   }, [showOuterPrompt]);
 
   useEffect(() => {
     if (!showOuterPrompt) return;
-    const edgeThreshold = Math.min(window.innerWidth * 0.12, 120);
+    const edgeThreshold = Math.min(window.innerWidth * EDGE_THRESHOLD_RATIO, MAX_EDGE_THRESHOLD_PX);
     const handleMouseMove = (e) => {
       if (e.clientX < edgeThreshold) {
         handleEdgeHover("left");
@@ -443,6 +447,7 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
             onClick={() => {
               setExpanded(false);
               setActiveNode(null);
+              setInnerExitPulse(false);
             }}
             className={innerExitPulse && isSelfRoot ? "inner-exit-pulse" : ""}
             style={{
@@ -504,7 +509,7 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
       {/* Clicking outside closes the panel */}
       {expanded && (
         <div
-          onClick={() => { setExpanded(false); setActiveNode(null); }}
+          onClick={() => { setExpanded(false); setActiveNode(null); setInnerExitPulse(false); }}
           style={{
             position: "fixed",
             inset: 0,
