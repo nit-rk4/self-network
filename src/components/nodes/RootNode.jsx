@@ -186,8 +186,7 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
     setActiveNode(null);
     // Show family completion popup after closing the last family member overlay
     if (isFamilyRoot && !familyCompleteShown) {
-      const updated = visitedFamilyNodes;
-      if (familyNodeLabels.every((l) => updated.has(l))) {
+      if (familyNodeLabels.every((l) => visitedFamilyNodes.has(l))) {
         setTimeout(() => setShowFamilyComplete(true), 300);
         setFamilyCompleteShown(true);
       }

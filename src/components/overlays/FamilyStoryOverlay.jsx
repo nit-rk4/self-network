@@ -42,7 +42,7 @@ export default function FamilyStoryOverlay({ onClose }) {
           and offering high-fives as a way to become more "extroverted". I aimed
           for this tall guy (who was willing to participate), swung my hand,
           missed, and accidentally knocked over his iced coffee. It spilled on
-          his bag and my shoe. My sisters ended up paying for his coffee and has
+          his bag and my shoe. My sisters ended up paying for his coffee and have
           never let me live this down.
         </p>
 
