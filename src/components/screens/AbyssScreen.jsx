@@ -658,6 +658,7 @@ export default function AbyssScreen({ onBack, onComplete }) {
       {/* Back button */}
       <button
         onClick={onBack}
+        className={abyssCompleted ? "abyss-back-pulse" : ""}
         style={{
           position: "fixed",
           top: "clamp(14px, calc(10px + 1vw), 42px)",
