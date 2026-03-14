@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 const messageParagraphs = [
   "This project is presented as a network because I do not experience my sense of self as a single, linear story.",
   "Each node represents an aspect of who I am, shown without a fixed order to reflect how these parts coexist rather than follow a clear beginning or ending.",
-  "Viewers are free to navigate the map in any direction, mirroring how thoughts, memories, and self-reflection naturally connect.",
-  "This structure reflects how I understand myself: interconnected, evolving, and made up of many equally important parts.",
+  "Like getting to know a person, this map begins at the center. Start with my name to explore the parts that shape who I am.",
+  "As you move through those nodes, the network gradually opens outward to reveal the people in my life and the paths I hope to follow."
 ];
 
 export default function TitleScreen({ onComplete }) {

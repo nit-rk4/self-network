@@ -36,10 +36,12 @@ const stanzas = [
   ["she rises less certain, more whole, learning the weight of each step;", "not victory, not a curtain call, but windows opened slowly\u2014", "she is present. she is enough."],
 ];
 
-export default function AbyssScreen({ onBack }) {
+export default function AbyssScreen({ onBack, onComplete }) {
   const [entered, setEntered] = useState(false);
   const [revealedLines, setRevealedLines] = useState(0);
   const [visibleSection, setVisibleSection] = useState(1);
+  const [abyssCompleted, setAbyssCompleted] = useState(false);
+  const completionSentRef = useRef(false);
   const scrollRef = useRef(null);
   const lineRefs = useRef([]);
   const stanzaRefs = useRef([]);
@@ -51,6 +53,13 @@ export default function AbyssScreen({ onBack }) {
 
     const handleScroll = () => {
       const viewportMid = container.scrollTop + container.clientHeight / 2;
+      const reachedEnd = container.scrollTop + container.clientHeight >= container.scrollHeight - 80;
+
+      if (reachedEnd && !completionSentRef.current) {
+        completionSentRef.current = true;
+        setAbyssCompleted(true);
+        if (onComplete) onComplete();
+      }
 
       // Walk stanza refs to find the one closest to viewport middle
       let closestStanza = 0;
@@ -74,7 +83,7 @@ export default function AbyssScreen({ onBack }) {
 
     container.addEventListener("scroll", handleScroll, { passive: true });
     return () => container.removeEventListener("scroll", handleScroll);
-  }, [entered]);
+  }, [entered, onComplete]);
 
   useEffect(() => {
     const t = setTimeout(() => setEntered(true), 50);

@@ -726,6 +726,66 @@ body {
   animation: abyssEndingPulse 6s ease-in-out infinite;
 }
 
+@keyframes abyssBackPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(140,100,200,0.2);
+  }
+  50% {
+    transform: scale(1.12);
+    box-shadow: 0 0 28px rgba(190,155,245,0.35), 0 0 54px rgba(140,100,200,0.18);
+  }
+}
+
+.abyss-back-pulse {
+  animation: abyssBackPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes abyssCompletionMessage {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.abyss-completion-message {
+  animation: abyssCompletionMessage 0.55s ease forwards;
+}
+
+@keyframes outerDirectionPulse {
+  0%, 100% {
+    opacity: 0.42;
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.12);
+  }
+}
+
+.outer-direction-cue {
+  animation: outerDirectionPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes innerExitPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(102,210,255,0.35), 0 0 40px rgba(0,150,255,0.2);
+  }
+  50% {
+    transform: scale(1.18);
+    box-shadow: 0 0 30px rgba(160,220,255,0.6), 0 0 65px rgba(80,170,255,0.35);
+  }
+}
+
+.inner-exit-pulse {
+  animation: innerExitPulse 1s ease-in-out infinite;
+}
+
 /* ─── Mobile-first responsive adjustments ─── */
 
 @media (max-width: 768px) {
