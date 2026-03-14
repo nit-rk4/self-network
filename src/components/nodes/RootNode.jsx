@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { FiArrowLeft, FiHelpCircle } from "react-icons/fi";
 import InnerNetworkTemplate from "./InnerNetworkTemplate";
 import SelfRootNode from "./SelfRootNode";
@@ -123,6 +123,20 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
     });
     setTimeout(() => setHoverSide(null), 600);
   }, [showOuterPrompt]);
+
+  useEffect(() => {
+    if (!showOuterPrompt) return;
+    const edgeThreshold = Math.min(window.innerWidth * 0.12, 120);
+    const handleMouseMove = (e) => {
+      if (e.clientX < edgeThreshold) {
+        handleEdgeHover("left");
+      } else if (e.clientX > window.innerWidth - edgeThreshold) {
+        handleEdgeHover("right");
+      }
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [showOuterPrompt, handleEdgeHover]);
 
   const handleNodeClick = (node) => {
     if (isSelfRoot) {
@@ -295,31 +309,6 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
 
       {showOuterPrompt && (
         <>
-          <div
-            onMouseEnter={() => handleEdgeHover("left")}
-            style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              width: "22vw",
-              height: "100vh",
-              zIndex: 44,
-              background: "transparent",
-            }}
-          />
-          <div
-            onMouseEnter={() => handleEdgeHover("right")}
-            style={{
-              position: "fixed",
-              top: 0,
-              right: 0,
-              width: "22vw",
-              height: "100vh",
-              zIndex: 44,
-              background: "transparent",
-            }}
-          />
-
           <div
             style={{
               position: "fixed",
