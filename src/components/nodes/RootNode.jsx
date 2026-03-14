@@ -121,7 +121,7 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
       }
       return next;
     });
-    setTimeout(() => setHoverSide(null), 250);
+    setTimeout(() => setHoverSide(null), 600);
   }, [showOuterPrompt]);
 
   const handleNodeClick = (node) => {
@@ -195,8 +195,8 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
         }}
       />
 
-      {/* Lines going to/from the main node - ONLY when NOT expanded and in self view */}
-      {!expanded && outerView === "self" && (
+      {/* Lines going to/from the main node - fade with self view */}
+      {!expanded && (
         <svg
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
@@ -207,6 +207,8 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
             height: "100vh",
             pointerEvents: "none",
             zIndex: 39,
+            opacity: outerView === "self" ? 1 : 0,
+            transition: "opacity 0.7s ease",
           }}
         >
           {/* Lines going UP from TOP PORT */}
@@ -301,7 +303,7 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
               left: 0,
               width: "22vw",
               height: "100vh",
-              zIndex: 41,
+              zIndex: 44,
               background: "transparent",
             }}
           />
@@ -313,7 +315,7 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
               right: 0,
               width: "22vw",
               height: "100vh",
-              zIndex: 41,
+              zIndex: 44,
               background: "transparent",
             }}
           />
@@ -324,7 +326,7 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
               left: "clamp(14px, calc(10px + 1vw), 42px)",
               top: "50%",
               transform: "translateY(-50%)",
-              zIndex: 42,
+              zIndex: 43,
               color: "rgba(102,210,255,0.72)",
               fontSize: "clamp(18px, calc(12px + 0.9vw), 40px)",
               letterSpacing: "0.08em",
@@ -343,7 +345,7 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
               right: "clamp(14px, calc(10px + 1vw), 42px)",
               top: "50%",
               transform: "translateY(-50%)",
-              zIndex: 42,
+              zIndex: 43,
               color: "rgba(102,210,255,0.72)",
               fontSize: "clamp(18px, calc(12px + 0.9vw), 40px)",
               letterSpacing: "0.08em",
@@ -362,7 +364,7 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
               left: "50%",
               bottom: "clamp(14px, calc(8px + 0.8vw), 34px)",
               transform: "translateX(-50%)",
-              zIndex: 42,
+              zIndex: 43,
               textAlign: "center",
               color: "rgba(102,210,255,0.5)",
               fontSize: "clamp(10px, calc(6px + 0.4vw), 18px)",
@@ -383,9 +385,12 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
           position: "fixed",
           inset: 0,
           zIndex: 42,
-          pointerEvents: outerView === "relationships" ? "auto" : "none",
-          opacity: outerView === "relationships" ? 1 : 0,
-          transition: "opacity 0.6s ease",
+          pointerEvents: outerView === "relationships" && !expanded ? "auto" : "none",
+          opacity: outerView === "relationships" && !expanded ? 1 : 0,
+          transform: outerView === "relationships" && !expanded
+            ? "perspective(1200px) rotateY(0deg)"
+            : `perspective(1200px) rotateY(${hoverSide === "left" ? "35deg" : hoverSide === "right" ? "-35deg" : "-20deg"})`,
+          transition: "opacity 0.7s ease, transform 0.7s cubic-bezier(.2,.9,.2,1)",
         }}
       >
         <svg
@@ -416,10 +421,11 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
             position: "absolute",
             left: "50%",
             top: "50%",
-            transform: `translate(-50%, -50%) perspective(1300px) rotateY(${hoverSide === "left" ? "-12deg" : hoverSide === "right" ? "12deg" : "0deg"})`,
+            transform: "translate(-50%, -50%)",
             display: "flex",
             gap: "clamp(18px, calc(12px + 1.1vw), 44px)",
             alignItems: "center",
+            transition: "transform 0.5s ease",
           }}
         >
           {relationshipRoots.map((rootNode) => {
@@ -509,7 +515,7 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
       {/* Clicking outside closes the panel */}
       {expanded && (
         <div
-          onClick={() => setExpanded(false)}
+          onClick={() => { setExpanded(false); setActiveNode(null); }}
           style={{
             position: "fixed",
             inset: 0,
@@ -520,7 +526,6 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
       )}
 
       {/* Main panel container with border cutouts */}
-      {(expanded || outerView === "self") && (
       <div
         style={{
           position: "fixed",
@@ -533,6 +538,11 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
           alignItems: "center",
           justifyContent: "center",
           transition: "all 0.7s cubic-bezier(.2,.9,.2,1)",
+          opacity: (expanded || outerView === "self") ? 1 : 0,
+          transform: (!expanded && outerView === "relationships")
+            ? `perspective(1200px) rotateY(${hoverSide === "left" ? "35deg" : hoverSide === "right" ? "-35deg" : "20deg"})`
+            : "perspective(1200px) rotateY(0deg)",
+          pointerEvents: (expanded || outerView === "self") ? "auto" : "none",
         }}
       >
         {!expanded && (
@@ -564,7 +574,6 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
           </div>
         )}
       </div>
-      )}
 
       {/* Node overlays */}
       {isSelfRoot && activeNode === "IDENTITY" && <IdentityOverlay onClose={closeOverlay} />}
