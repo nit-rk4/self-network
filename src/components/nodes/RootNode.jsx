@@ -6,11 +6,19 @@ import FriendsRootNode from "./FriendsRootNode";
 import FamilyRootNode from "./FamilyRootNode";
 import SignificantOtherRootNode from "./SignificantOtherRootNode";
 import AbyssDoor from "./AbyssDoor";
+import FamilyDoor from "./FamilyDoor";
 import IdentityOverlay from "../overlays/IdentityOverlay";
 import StrengthOverlay from "../overlays/StrengthOverlay";
 import ShadowOverlay from "../overlays/ShadowOverlay";
 import GrowthOverlay from "../overlays/GrowthOverlay";
 import ForgivenessOverlay from "../overlays/ForgivenessOverlay";
+import MamaOverlay from "../overlays/MamaOverlay";
+import PapaOverlay from "../overlays/PapaOverlay";
+import AteMarielOverlay from "../overlays/AteMarielOverlay";
+import AteDJOverlay from "../overlays/AteDJOverlay";
+import AteDianneOverlay from "../overlays/AteDianneOverlay";
+import FamilyCompleteOverlay from "../overlays/FamilyCompleteOverlay";
+import FamilyStoryOverlay from "../overlays/FamilyStoryOverlay";
 import AbyssEntryOverlay from "../overlays/AbyssEntryOverlay";
 import GuideScreen from "../overlays/GuideScreen";
 import NodeOverlay from "../overlays/NodeOverlay";
@@ -34,11 +42,11 @@ const relationshipRoots = [
     label: "Family",
     component: FamilyRootNode,
     innerNodes: [
-      { label: "HOME", color: "130,210,255" },
-      { label: "SACRIFICE", color: "255,195,120" },
-      { label: "GUIDANCE", color: "170,200,255" },
-      { label: "PRESSURE", color: "220,160,210" },
-      { label: "GRATITUDE", color: "130,220,160" },
+      { label: "MAMA", color: "255,195,140" },
+      { label: "PAPA", color: "140,180,220" },
+      { label: "ATE MARIEL", color: "200,160,220" },
+      { label: "ATE DJ", color: "255,160,140" },
+      { label: "ATE DIANNE", color: "140,220,190" },
     ],
   },
   {
@@ -79,6 +87,12 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
   const [showAbyss, setShowAbyss] = useState(false);
   const lastEdgeSwitchRef = useRef(0);
 
+  // Family tracking
+  const [visitedFamilyNodes, setVisitedFamilyNodes] = useState(new Set());
+  const [showFamilyComplete, setShowFamilyComplete] = useState(false);
+  const [familyCompleteShown, setFamilyCompleteShown] = useState(false);
+  const [showFamilyStory, setShowFamilyStory] = useState(false);
+
   const rootConfigs = {
     self: {
       key: "self",
@@ -106,10 +120,14 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
 
   const currentRoot = rootConfigs[activeRootKey] ?? rootConfigs.self;
   const isSelfRoot = activeRootKey === "self";
+  const isFamilyRoot = activeRootKey === "family";
 
   const allNodeLabels = childrenNodes.map((n) => n.label);
   const allVisited = allNodeLabels.length > 0 && allNodeLabels.every((l) => visitedNodes.has(l));
   const showOuterPrompt = abyssCompleted && !expanded && !showAbyss && !showAbyssEntry && !abyssTransitioning;
+
+  const familyNodeLabels = relationshipRoots[1].innerNodes.map((n) => n.label);
+  const allFamilyVisited = familyNodeLabels.length > 0 && familyNodeLabels.every((l) => visitedFamilyNodes.has(l));
 
   const handleEdgeHover = useCallback((side) => {
     if (!showOuterPrompt) return;
@@ -147,6 +165,10 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
       setVisitedNodes((prev) => new Set(prev).add(node.label));
     }
 
+    if (isFamilyRoot) {
+      setVisitedFamilyNodes((prev) => new Set(prev).add(node.label));
+    }
+
     if (isSelfRoot && node.label === "SHADOWS") {
       setShadowRevealed((prev) => !prev);
       if (shadowRevealed) return; // closing — don't open overlay
@@ -160,7 +182,17 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
     setExpanded(true);
   }, []);
 
-  const closeOverlay = () => setActiveNode(null);
+  const closeOverlay = () => {
+    setActiveNode(null);
+    // Show family completion popup after closing the last family member overlay
+    if (isFamilyRoot && !familyCompleteShown) {
+      const updated = visitedFamilyNodes;
+      if (familyNodeLabels.every((l) => updated.has(l))) {
+        setTimeout(() => setShowFamilyComplete(true), 300);
+        setFamilyCompleteShown(true);
+      }
+    }
+  };
 
   const handleAbyssEnter = useCallback(() => {
     setShowAbyssEntry(false);
@@ -575,7 +607,15 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
       {isSelfRoot && activeNode === "SHADOWS" && <ShadowOverlay onClose={closeOverlay} />}
       {isSelfRoot && activeNode === "GROWTH" && <GrowthOverlay onClose={closeOverlay} />}
       {isSelfRoot && activeNode === "FORGIVENESS" && <ForgivenessOverlay onClose={closeOverlay} />}
-      {!isSelfRoot && activeNode && (
+
+      {/* Family member overlays */}
+      {isFamilyRoot && activeNode === "MAMA" && <MamaOverlay onClose={closeOverlay} />}
+      {isFamilyRoot && activeNode === "PAPA" && <PapaOverlay onClose={closeOverlay} />}
+      {isFamilyRoot && activeNode === "ATE MARIEL" && <AteMarielOverlay onClose={closeOverlay} />}
+      {isFamilyRoot && activeNode === "ATE DJ" && <AteDJOverlay onClose={closeOverlay} />}
+      {isFamilyRoot && activeNode === "ATE DIANNE" && <AteDianneOverlay onClose={closeOverlay} />}
+
+      {!isSelfRoot && !isFamilyRoot && activeNode && (
         <NodeOverlay title={activeNode} onClose={closeOverlay}>
           <p
             style={{
@@ -646,6 +686,21 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
             </button>
           </div>
         </div>
+      )}
+
+      {/* Family completion popup */}
+      {showFamilyComplete && (
+        <FamilyCompleteOverlay onClose={() => setShowFamilyComplete(false)} />
+      )}
+
+      {/* Family locked door - present throughout while in family inner network */}
+      {isFamilyRoot && expanded && !showFamilyStory && (
+        <FamilyDoor onClick={() => setShowFamilyStory(true)} />
+      )}
+
+      {/* Family embarrassing story popup */}
+      {showFamilyStory && (
+        <FamilyStoryOverlay onClose={() => setShowFamilyStory(false)} />
       )}
 
       {/* Abyss door - appears when all nodes visited */}
