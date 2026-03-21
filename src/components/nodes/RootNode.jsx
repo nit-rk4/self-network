@@ -6,6 +6,7 @@ import SelfRootNode from "./SelfRootNode";
 import FriendsRootNode from "./FriendsRootNode";
 import FamilyRootNode from "./FamilyRootNode";
 import SignificantOtherRootNode from "./SignificantOtherRootNode";
+import SignificantOtherInnerNetwork from "./SignificantOtherInnerNetwork";
 import AbyssDoor from "./AbyssDoor";
 import IdentityOverlay from "../overlays/IdentityOverlay";
 import StrengthOverlay from "../overlays/StrengthOverlay";
@@ -30,6 +31,8 @@ const relationshipRoots = [
   {
     key: "friends",
     label: "Friends",
+    titleText: "Friends",
+    titleFontSize: "clamp(20px, calc(13px + 1.75vw), 32px)",
     component: FriendsRootNode,
     innerNodes: [
       { label: "LOYALTY", color: "120,210,255" },
@@ -42,6 +45,8 @@ const relationshipRoots = [
   {
     key: "family",
     label: "Family",
+    titleText: "Family",
+    titleFontSize: "clamp(20px, calc(13px + 1.75vw), 32px)",
     component: FamilyRootNode,
     innerNodes: [
       { label: "MAMA", color: "255,195,140" },
@@ -55,13 +60,12 @@ const relationshipRoots = [
   {
     key: "significantOther",
     label: "Significant Other",
+    titleText: "Significant Other",
+    titleFontSize: "clamp(12px, calc(11px + 1.3vw), 16px)",
     component: SignificantOtherRootNode,
     innerNodes: [
-      { label: "TRUST", color: "130,215,255" },
-      { label: "COMMUNICATION", color: "180,220,255" },
-      { label: "CARE", color: "255,170,210" },
-      { label: "BOUNDARIES", color: "170,190,255" },
-      { label: "FUTURE", color: "150,230,180" },
+      { label: "Current Status", color: "170,225,185" },
+      { label: "Relationship Ideals", color: "150,215,170" },
     ],
   },
 ];
@@ -125,6 +129,7 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
   const currentRoot = rootConfigs[activeRootKey] ?? rootConfigs.self;
   const isSelfRoot = activeRootKey === "self";
   const isFamilyRoot = activeRootKey === "family";
+  const isSignificantOtherRoot = activeRootKey === "significantOther";
 
   const allNodeLabels = childrenNodes.map((n) => n.label);
   const allVisited = allNodeLabels.length > 0 && allNodeLabels.every((l) => visitedNodes.has(l));
@@ -424,7 +429,7 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
             height: "100vh",
           }}
         >
-          {[18, 50, 82].map((x, i) => (
+          {[29, 50, 71].map((x, i) => (
             <g key={`relationship-lines-${i}`}>
               <line x1={x} y1={0} x2={x} y2={34} stroke="rgba(102,210,255,0.3)" strokeWidth={0.6} />
               <line x1={x} y1={0} x2={x} y2={34} stroke="rgba(102,210,255,0.9)" strokeWidth={0.22} />
@@ -461,7 +466,11 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
                   minHeight: "clamp(120px, calc(90px + 3.2vw), 180px)",
                 }}
               >
-                <RootComponent onClick={() => handleOpenRoot(rootNode.key)} />
+                <RootComponent
+                  onClick={() => handleOpenRoot(rootNode.key)}
+                  titleText={rootNode.titleText}
+                  titleFontSize={rootNode.titleFontSize}
+                />
               </div>
             );
           })}
@@ -598,6 +607,11 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
                 allVisited={allFamilyVisited}
                 onHollowClick={() => setShowFamilyComplete(true)}
               />
+            ) : isSignificantOtherRoot ? (
+              <SignificantOtherInnerNetwork
+                nodes={currentRoot.innerNodes}
+                onNodeClick={handleNodeClick}
+              />
             ) : (
               <InnerNetworkTemplate
                 nodes={currentRoot.innerNodes}
@@ -625,7 +639,180 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
       {isFamilyRoot && activeNode === "ATE DIANNE" && <AteDianneOverlay onClose={closeOverlay} />}
       {isFamilyRoot && activeNode === "GRANDPARENTS" && <GrandparentsOverlay onClose={closeOverlay} />}
 
-      {!isSelfRoot && !isFamilyRoot && activeNode && (
+      {isSignificantOtherRoot && activeNode === "Current Status" && (
+        <NodeOverlay
+          title="Current Status"
+          onClose={closeOverlay}
+          color="170,225,185"
+          flowerShaped
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "clamp(12px, calc(8px + 0.8vw), 28px)",
+              alignItems: "center",
+            }}
+          >
+            <p
+              style={{
+                fontSize: "clamp(11px, calc(6px + 0.42vw), 18px)",
+                lineHeight: 1.65,
+                color: "rgba(240, 247, 243, 0.92)",
+                textShadow: "0 0 10px rgba(226, 245, 236, 0.16)",
+                margin: 0,
+                textAlign: "center",
+                maxWidth: "min(100%, 46ch)",
+                overflowWrap: "anywhere",
+              }}
+            >
+              I don't have a significant other right now.
+            </p>
+            <p
+              style={{
+                fontSize: "clamp(11px, calc(6px + 0.42vw), 18px)",
+                lineHeight: 1.65,
+                color: "rgba(240, 247, 243, 0.92)",
+                textShadow: "0 0 10px rgba(226, 245, 236, 0.16)",
+                margin: 0,
+                textAlign: "center",
+                maxWidth: "min(100%, 46ch)",
+                overflowWrap: "anywhere",
+              }}
+            >
+              Sometimes I wonder what it would be like-to have someone to share
+              things with, to be understood in a different way. But at the same
+              time, I don't feel like I'm missing something urgent.
+            </p>
+            <p
+              style={{
+                fontSize: "clamp(11px, calc(6px + 0.42vw), 18px)",
+                lineHeight: 1.65,
+                color: "rgba(240, 247, 243, 0.92)",
+                textShadow: "0 0 10px rgba(226, 245, 236, 0.16)",
+                margin: 0,
+                textAlign: "center",
+                maxWidth: "min(100%, 46ch)",
+                overflowWrap: "anywhere",
+              }}
+            >
+              Right now, I'm still learning about myself-what I value, how I
+              think, and who I want to become.
+            </p>
+            <p
+              style={{
+                fontSize: "clamp(11px, calc(6px + 0.42vw), 18px)",
+                lineHeight: 1.65,
+                color: "rgba(240, 247, 243, 0.92)",
+                textShadow: "0 0 10px rgba(226, 245, 236, 0.16)",
+                margin: 0,
+                textAlign: "center",
+                maxWidth: "min(100%, 46ch)",
+                overflowWrap: "anywhere",
+              }}
+            >
+              I think I'd rather understand those things first, before I try to
+              build something with someone else.
+            </p>
+          </div>
+        </NodeOverlay>
+      )}
+
+      {isSignificantOtherRoot && activeNode === "Relationship Ideals" && (
+        <NodeOverlay
+          title="Relationship Ideals"
+          onClose={closeOverlay}
+          color="150,215,170"
+          flowerShaped
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "clamp(12px, calc(8px + 0.8vw), 28px)",
+              alignItems: "center",
+            }}
+          >
+            <p
+              style={{
+                fontSize: "clamp(11px, calc(6px + 0.42vw), 18px)",
+                lineHeight: 1.65,
+                color: "rgba(240, 247, 243, 0.92)",
+                textShadow: "0 0 10px rgba(226, 245, 236, 0.16)",
+                margin: 0,
+                textAlign: "center",
+                maxWidth: "min(100%, 46ch)",
+                overflowWrap: "anywhere",
+              }}
+            >
+              I think a relationship should feel safe and genuine.
+            </p>
+            <p
+              style={{
+                fontSize: "clamp(11px, calc(6px + 0.42vw), 18px)",
+                lineHeight: 1.65,
+                color: "rgba(240, 247, 243, 0.92)",
+                textShadow: "0 0 10px rgba(226, 245, 236, 0.16)",
+                margin: 0,
+                textAlign: "center",
+                maxWidth: "min(100%, 46ch)",
+                overflowWrap: "anywhere",
+              }}
+            >
+              I'd want someone who is honest, kind, and willing to communicate-
+              someone who listens, but also speaks their mind. Someone I can
+              grow with, not just be comfortable with.
+            </p>
+            <p
+              style={{
+                fontSize: "clamp(11px, calc(6px + 0.42vw), 18px)",
+                lineHeight: 1.65,
+                color: "rgba(240, 247, 243, 0.92)",
+                textShadow: "0 0 10px rgba(226, 245, 236, 0.16)",
+                margin: 0,
+                textAlign: "center",
+                maxWidth: "min(100%, 46ch)",
+                overflowWrap: "anywhere",
+              }}
+            >
+              I imagine I'd feel happy in the small things-simple conversations,
+              shared moments, and knowing someone understands me.
+            </p>
+            <p
+              style={{
+                fontSize: "clamp(11px, calc(6px + 0.42vw), 18px)",
+                lineHeight: 1.65,
+                color: "rgba(240, 247, 243, 0.92)",
+                textShadow: "0 0 10px rgba(226, 245, 236, 0.16)",
+                margin: 0,
+                textAlign: "center",
+                maxWidth: "min(100%, 46ch)",
+                overflowWrap: "anywhere",
+              }}
+            >
+              I think what would hurt me most is dishonesty or being
+              misunderstood, especially if I'm trying to be open.
+            </p>
+            <p
+              style={{
+                fontSize: "clamp(11px, calc(6px + 0.42vw), 18px)",
+                lineHeight: 1.65,
+                color: "rgba(240, 247, 243, 0.92)",
+                textShadow: "0 0 10px rgba(226, 245, 236, 0.16)",
+                margin: 0,
+                textAlign: "center",
+                maxWidth: "min(100%, 46ch)",
+                overflowWrap: "anywhere",
+              }}
+            >
+              More than anything, I'd want a relationship where both people
+              respect each other and help each other grow.
+            </p>
+          </div>
+        </NodeOverlay>
+      )}
+
+      {!isSelfRoot && !isFamilyRoot && !isSignificantOtherRoot && activeNode && (
         <NodeOverlay title={activeNode} onClose={closeOverlay}>
           <p
             style={{

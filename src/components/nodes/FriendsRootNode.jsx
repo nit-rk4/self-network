@@ -1,11 +1,11 @@
 import RootNodeTemplate from "./RootNodeTemplate";
 
-export default function FriendsRootNode({ onClick }) {
+export default function FriendsRootNode({ onClick, titleText = "Friends", titleFontSize }) {
   return (
     <RootNodeTemplate
-      label="Friends"
+      label={titleText}
       onClick={onClick}
-      hintText="< click to view inner network >"
+      titleFontSize={titleFontSize}
       interactive
     />
   );

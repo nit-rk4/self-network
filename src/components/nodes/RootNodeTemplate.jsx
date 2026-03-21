@@ -4,6 +4,7 @@ export default function RootNodeTemplate({
   hintText,
   interactive = true,
   style,
+  titleFontSize,
 }) {
   return (
     <div
@@ -111,7 +112,7 @@ export default function RootNodeTemplate({
       >
         <div
           style={{
-            fontSize: "clamp(18px, calc(12px + 1.5vw), 56px)",
+            fontSize: titleFontSize ?? "clamp(18px, calc(12px + 1.5vw), 56px)",
             color: "var(--accent)",
             letterSpacing: "0.08em",
             textShadow: "0 4px 12px rgba(0,150,255,0.08)",

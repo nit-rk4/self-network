@@ -1,11 +1,11 @@
 import RootNodeTemplate from "./RootNodeTemplate";
 
-export default function FamilyRootNode({ onClick }) {
+export default function FamilyRootNode({ onClick, titleText = "Family", titleFontSize }) {
   return (
     <RootNodeTemplate
-      label="Family"
+      label={titleText}
       onClick={onClick}
-      hintText="< click to view inner network >"
+      titleFontSize={titleFontSize}
       interactive
     />
   );

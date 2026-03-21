@@ -1,11 +1,15 @@
 import RootNodeTemplate from "./RootNodeTemplate";
 
-export default function SignificantOtherRootNode({ onClick }) {
+export default function SignificantOtherRootNode({
+  onClick,
+  titleText = "Significant Other",
+  titleFontSize,
+}) {
   return (
     <RootNodeTemplate
-      label="Significant Other"
+      label={titleText}
       onClick={onClick}
-      hintText="< click to view inner network >"
+      titleFontSize={titleFontSize}
       interactive
     />
   );
