@@ -7,15 +7,26 @@
 /* Pixelated heading font */
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-:root{
-  --bg: #071025;      /* deep navy */
-  --panel: #081e33;   /* initial panel */
-  --panel-expanded: #040812; /* expanded panel */
-  --glow: rgba(0,150,255,0.35); /* blue glow */
-  --accent: #66d2ff;  /* blue accent text */
+:root {
+  --bg: #071025;
+  /* deep navy */
+  --panel: #081e33;
+  /* initial panel */
+  --panel-expanded: #040812;
+  /* expanded panel */
+  --glow: rgba(0, 150, 255, 0.35);
+  /* blue glow */
+  --accent: #66d2ff;
+  /* blue accent text */
 }
 
-html,body,#root { height: 100%; margin: 0; padding:0; }
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
 body {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -31,15 +42,22 @@ body {
 
 /* Panel base styles (we'll use Tailwind classes + these extras) */
 .panel {
-  transition: all 700ms cubic-bezier(.2,.9,.2,1);
-  box-shadow: 0 10px 40px var(--glow), inset 0 1px 0 rgba(255,255,255,0.02);
+  transition: all 700ms cubic-bezier(.2, .9, .2, 1);
+  box-shadow: 0 10px 40px var(--glow), inset 0 1px 0 rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(4px);
 }
 
 /* inner node fade */
 @keyframes appear {
-  from { transform: translate(-50%,-50%) translateY(6px) scale(.98); opacity: 0; }
-  to { transform: translate(-50%,-50%) translateY(0) scale(1); opacity: 1; }
+  from {
+    transform: translate(-50%, -50%) translateY(6px) scale(.98);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate(-50%, -50%) translateY(0) scale(1);
+    opacity: 1;
+  }
 }
 
 .inner-node {
@@ -77,13 +95,25 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes overlaySlideIn {
-  from { opacity: 0; transform: scale(0.95) translateY(10px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 /* Full-screen containers for password / title screens */
@@ -103,9 +133,12 @@ body {
 
 /* Blinking words animation */
 @keyframes blink {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0;
   }
+
   50% {
     opacity: 1;
   }
@@ -113,19 +146,26 @@ body {
 
 /* Shadow node heartbeat pulse */
 @keyframes shadowPulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.08;
   }
+
   15% {
     opacity: 0.35;
   }
+
   30% {
     opacity: 0.08;
   }
+
   45% {
     opacity: 0.25;
   }
-  60%, 100% {
+
+  60%,
+  100% {
     opacity: 0.08;
   }
 }
@@ -141,8 +181,15 @@ body {
 
 /* Insecurity words fade in */
 @keyframes insecurityAppear {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* Abyss door entrance animation */
@@ -151,6 +198,7 @@ body {
     opacity: 0;
     transform: translateY(40px) scale(0.9);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -167,6 +215,7 @@ body {
     clip-path: circle(0% at calc(100% - 68px) calc(100% - 84px));
     opacity: 1;
   }
+
   100% {
     clip-path: circle(150% at calc(100% - 68px) calc(100% - 84px));
     opacity: 1;
@@ -183,20 +232,25 @@ body {
     transform: translateY(0) translateX(0) rotate(0deg) scale(0.8);
     opacity: 0;
   }
+
   8% {
     opacity: 1;
   }
+
   25% {
     transform: translateY(-25vh) translateX(18px) rotate(10deg) scale(1);
   }
+
   50% {
     transform: translateY(-50vh) translateX(-14px) rotate(-8deg) scale(1.05);
     opacity: 0.7;
   }
+
   75% {
     transform: translateY(-75vh) translateX(12px) rotate(15deg) scale(0.95);
     opacity: 0.4;
   }
+
   100% {
     transform: translateY(-105vh) translateX(-8px) rotate(20deg) scale(0.8);
     opacity: 0;
@@ -210,9 +264,12 @@ body {
 
 /* Abyss surface glow pulse */
 @keyframes abyssSurfaceGlow {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.4;
   }
+
   50% {
     opacity: 1;
   }
@@ -228,17 +285,21 @@ body {
     transform: translateY(0) translateX(0) scale(1);
     opacity: 0;
   }
+
   8% {
     opacity: 1;
   }
+
   40% {
     transform: translateY(40vh) translateX(8px) scale(0.9);
     opacity: 0.6;
   }
+
   70% {
     transform: translateY(70vh) translateX(-6px) scale(0.7);
     opacity: 0.3;
   }
+
   100% {
     transform: translateY(110vh) translateX(4px) scale(0.4);
     opacity: 0;
@@ -252,16 +313,47 @@ body {
 
 /* Abyss section 2: subtle screen tremor */
 @keyframes abyssTremor {
-  0%, 100% { transform: translate(0, 0); }
-  10% { transform: translate(-0.5px, 0.3px); }
-  20% { transform: translate(0.4px, -0.5px); }
-  30% { transform: translate(-0.3px, 0.2px); }
-  40% { transform: translate(0.5px, 0.4px); }
-  50% { transform: translate(-0.2px, -0.3px); }
-  60% { transform: translate(0.3px, 0.5px); }
-  70% { transform: translate(-0.4px, -0.2px); }
-  80% { transform: translate(0.2px, 0.3px); }
-  90% { transform: translate(-0.3px, -0.4px); }
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  10% {
+    transform: translate(-0.5px, 0.3px);
+  }
+
+  20% {
+    transform: translate(0.4px, -0.5px);
+  }
+
+  30% {
+    transform: translate(-0.3px, 0.2px);
+  }
+
+  40% {
+    transform: translate(0.5px, 0.4px);
+  }
+
+  50% {
+    transform: translate(-0.2px, -0.3px);
+  }
+
+  60% {
+    transform: translate(0.3px, 0.5px);
+  }
+
+  70% {
+    transform: translate(-0.4px, -0.2px);
+  }
+
+  80% {
+    transform: translate(0.2px, 0.3px);
+  }
+
+  90% {
+    transform: translate(-0.3px, -0.4px);
+  }
 }
 
 .abyss-pressure-tremor {
@@ -270,13 +362,35 @@ body {
 
 /* Abyss section 2: text tremble for pressure lines */
 @keyframes abyssTextTremble {
-  0%, 100% { transform: translateX(0); }
-  15% { transform: translateX(-1px); }
-  30% { transform: translateX(0.8px); }
-  45% { transform: translateX(-0.6px); }
-  60% { transform: translateX(1px); }
-  75% { transform: translateX(-0.5px); }
-  90% { transform: translateX(0.7px); }
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  15% {
+    transform: translateX(-1px);
+  }
+
+  30% {
+    transform: translateX(0.8px);
+  }
+
+  45% {
+    transform: translateX(-0.6px);
+  }
+
+  60% {
+    transform: translateX(1px);
+  }
+
+  75% {
+    transform: translateX(-0.5px);
+  }
+
+  90% {
+    transform: translateX(0.7px);
+  }
 }
 
 .abyss-tremble {
@@ -289,23 +403,29 @@ body {
     transform: translateY(0) translateX(0) scale(1);
     opacity: 0;
   }
+
   15% {
     opacity: 1;
   }
+
   25% {
     transform: translateY(-8px) translateX(6px) scale(1.02);
   }
+
   50% {
     transform: translateY(4px) translateX(-8px) scale(0.98);
     opacity: 0.8;
   }
+
   75% {
     transform: translateY(-6px) translateX(10px) scale(1.01);
     opacity: 1;
   }
+
   85% {
     opacity: 0.6;
   }
+
   100% {
     transform: translateY(0) translateX(0) scale(1);
     opacity: 0;
@@ -321,14 +441,18 @@ body {
 
 /* Slow anxious pulse for triggering lines */
 @keyframes abyssAnxiousPulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.72;
     transform: scale(1);
   }
+
   30% {
     opacity: 0.45;
     transform: scale(0.995);
   }
+
   60% {
     opacity: 0.82;
     transform: scale(1.005);
@@ -345,23 +469,29 @@ body {
     transform: translate(0, 0) scale(1);
     opacity: 0;
   }
+
   15% {
     opacity: 1;
   }
+
   30% {
     transform: translate(12px, -10px) scale(1.1);
   }
+
   50% {
     transform: translate(-8px, 8px) scale(0.95);
     opacity: 0.7;
   }
+
   70% {
     transform: translate(6px, -14px) scale(1.05);
     opacity: 1;
   }
+
   85% {
     opacity: 0.5;
   }
+
   100% {
     transform: translate(0, 0) scale(1);
     opacity: 0;
@@ -380,30 +510,36 @@ body {
     filter: blur(8px);
     transform: translateY(6px) translateX(0) scale(0.92);
   }
+
   15% {
     opacity: 1;
     filter: blur(2px);
     transform: translateY(0) translateX(3px) scale(1);
   }
+
   30% {
     opacity: 0.9;
     filter: blur(1px);
     transform: translateY(-4px) translateX(-2px) scale(1.02);
   }
+
   50% {
     opacity: 0.7;
     filter: blur(2px);
     transform: translateY(2px) translateX(5px) scale(0.98);
   }
+
   70% {
     opacity: 0.5;
     filter: blur(4px);
     transform: translateY(-3px) translateX(-4px) scale(1.01);
   }
+
   85% {
     opacity: 0.2;
     filter: blur(6px);
   }
+
   100% {
     opacity: 0;
     filter: blur(8px);
@@ -418,9 +554,12 @@ body {
 
 /* Deepening vignette subtle breathe */
 @keyframes abyssVignetteBreathe {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.85;
   }
+
   50% {
     opacity: 1;
   }
@@ -432,14 +571,18 @@ body {
 
 /* Ember glow — warm patient pulse */
 @keyframes abyssEmberPulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.5;
     transform: scale(1);
   }
+
   40% {
     opacity: 0.9;
     transform: scale(1.15);
   }
+
   70% {
     opacity: 0.6;
     transform: scale(1.05);
@@ -451,10 +594,13 @@ body {
 }
 
 @keyframes abyssEmberHalo {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.4;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.8;
     transform: scale(1.1);
@@ -467,13 +613,16 @@ body {
 
 /* Ember line warm text glow */
 @keyframes abyssEmberLineGlow {
-  0%, 100% {
-    text-shadow: 0 0 14px rgba(255,160,60,0.35), 0 0 30px rgba(255,120,40,0.15);
-    color: rgba(200,165,130,0.82);
+
+  0%,
+  100% {
+    text-shadow: 0 0 14px rgba(255, 160, 60, 0.35), 0 0 30px rgba(255, 120, 40, 0.15);
+    color: rgba(200, 165, 130, 0.82);
   }
+
   50% {
-    text-shadow: 0 0 20px rgba(255,160,60,0.5), 0 0 45px rgba(255,120,40,0.25);
-    color: rgba(210,175,140,0.88);
+    text-shadow: 0 0 20px rgba(255, 160, 60, 0.5), 0 0 45px rgba(255, 120, 40, 0.25);
+    color: rgba(210, 175, 140, 0.88);
   }
 }
 
@@ -489,18 +638,22 @@ body {
     transform: translateY(0) scale(0.6);
     opacity: 0;
   }
+
   10% {
     opacity: 0.8;
     transform: translateY(-5vh) scale(1);
   }
+
   40% {
     transform: translateY(-35vh) translateX(6px) scale(0.9);
     opacity: 0.5;
   }
+
   70% {
     transform: translateY(-65vh) translateX(-4px) scale(0.7);
     opacity: 0.3;
   }
+
   100% {
     transform: translateY(-105vh) translateX(2px) scale(0.4);
     opacity: 0;
@@ -514,10 +667,13 @@ body {
 
 /* Gentle breathing center glow */
 @keyframes abyssReflectionGlow {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.4;
     transform: scale(1);
   }
+
   50% {
     opacity: 1;
     transform: scale(1.02);
@@ -534,26 +690,32 @@ body {
     opacity: 0;
     transform: translate(0, 0) scale(0.5);
   }
+
   15% {
     opacity: 0.7;
     transform: translate(8px, -12px) scale(1);
   }
+
   35% {
     opacity: 0.4;
     transform: translate(-14px, -6px) scale(0.8);
   }
+
   50% {
     opacity: 0.8;
     transform: translate(6px, 10px) scale(1.1);
   }
+
   65% {
     opacity: 0.3;
     transform: translate(-10px, 8px) scale(0.7);
   }
+
   80% {
     opacity: 0.6;
     transform: translate(12px, -4px) scale(0.9);
   }
+
   100% {
     opacity: 0;
     transform: translate(0, 0) scale(0.5);
@@ -571,21 +733,26 @@ body {
     opacity: 0;
     transform: translateY(4px) scale(0.96);
   }
+
   20% {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+
   45% {
     opacity: 0.8;
     transform: translateY(-2px) scale(1.01);
   }
+
   70% {
     opacity: 0.6;
     transform: translateY(1px) scale(0.99);
   }
+
   90% {
     opacity: 0.2;
   }
+
   100% {
     opacity: 0;
     transform: translateY(4px) scale(0.96);
@@ -599,13 +766,16 @@ body {
 
 /* Clarity line — gentle soft-glow breathe for key reflection lines */
 @keyframes abyssClarityGlow {
-  0%, 100% {
-    text-shadow: 0 0 16px rgba(200,190,240,0.3), 0 0 35px rgba(180,170,230,0.12);
-    color: rgba(185,175,220,0.82);
+
+  0%,
+  100% {
+    text-shadow: 0 0 16px rgba(200, 190, 240, 0.3), 0 0 35px rgba(180, 170, 230, 0.12);
+    color: rgba(185, 175, 220, 0.82);
   }
+
   50% {
-    text-shadow: 0 0 22px rgba(200,190,240,0.45), 0 0 50px rgba(180,170,230,0.2);
-    color: rgba(195,185,230,0.88);
+    text-shadow: 0 0 22px rgba(200, 190, 240, 0.45), 0 0 50px rgba(180, 170, 230, 0.2);
+    color: rgba(195, 185, 230, 0.88);
   }
 }
 
@@ -621,20 +791,25 @@ body {
     transform: translateY(0) translateX(0) rotate(var(--petal-start, 0deg)) scale(0.7);
     opacity: 0;
   }
+
   8% {
     opacity: 0.8;
   }
+
   25% {
     transform: translateY(28vh) translateX(20px) rotate(calc(var(--petal-start, 0deg) + 40deg)) scale(1);
   }
+
   50% {
     transform: translateY(55vh) translateX(-15px) rotate(calc(var(--petal-start, 0deg) + 90deg)) scale(0.9);
     opacity: 0.5;
   }
+
   75% {
     transform: translateY(80vh) translateX(10px) rotate(calc(var(--petal-start, 0deg) + 130deg)) scale(0.75);
     opacity: 0.3;
   }
+
   100% {
     transform: translateY(110vh) translateX(-8px) rotate(calc(var(--petal-start, 0deg) + 180deg)) scale(0.5);
     opacity: 0;
@@ -649,10 +824,13 @@ body {
 
 /* Warm breathing acceptance glow */
 @keyframes abyssAcceptanceGlow {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.5;
     transform: scale(1);
   }
+
   50% {
     opacity: 1;
     transform: scale(1.03);
@@ -669,22 +847,27 @@ body {
     transform: translateY(0) scale(0.5);
     opacity: 0;
   }
+
   12% {
     opacity: 0.9;
     transform: translateY(-8vh) scale(1);
   }
+
   35% {
     transform: translateY(-30vh) translateX(8px) scale(0.85);
     opacity: 0.6;
   }
+
   60% {
     transform: translateY(-55vh) translateX(-6px) scale(0.7);
     opacity: 0.4;
   }
+
   85% {
     transform: translateY(-80vh) translateX(4px) scale(0.5);
     opacity: 0.2;
   }
+
   100% {
     transform: translateY(-110vh) translateX(-2px) scale(0.3);
     opacity: 0;
@@ -698,13 +881,16 @@ body {
 
 /* Finale line — steady warm glow breathe */
 @keyframes abyssFinaleGlow {
-  0%, 100% {
-    text-shadow: 0 0 20px rgba(220,210,250,0.4), 0 0 50px rgba(200,190,240,0.18);
-    color: rgba(215,205,245,0.88);
+
+  0%,
+  100% {
+    text-shadow: 0 0 20px rgba(220, 210, 250, 0.4), 0 0 50px rgba(200, 190, 240, 0.18);
+    color: rgba(215, 205, 245, 0.88);
   }
+
   50% {
-    text-shadow: 0 0 28px rgba(220,210,250,0.55), 0 0 65px rgba(200,190,240,0.28);
-    color: rgba(225,215,250,0.94);
+    text-shadow: 0 0 28px rgba(220, 210, 250, 0.55), 0 0 65px rgba(200, 190, 240, 0.28);
+    color: rgba(225, 215, 250, 0.94);
   }
 }
 
@@ -714,9 +900,12 @@ body {
 
 /* End-of-abyss text subtle pulse */
 @keyframes abyssEndingPulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.3;
   }
+
   50% {
     opacity: 0.5;
   }
@@ -727,13 +916,16 @@ body {
 }
 
 @keyframes abyssBackPulse {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1);
-    box-shadow: 0 0 20px rgba(140,100,200,0.2);
+    box-shadow: 0 0 20px rgba(140, 100, 200, 0.2);
   }
+
   50% {
     transform: scale(1.12);
-    box-shadow: 0 0 28px rgba(190,155,245,0.35), 0 0 54px rgba(140,100,200,0.18);
+    box-shadow: 0 0 28px rgba(190, 155, 245, 0.35), 0 0 54px rgba(140, 100, 200, 0.18);
   }
 }
 
@@ -746,6 +938,7 @@ body {
     opacity: 0;
     transform: translateX(-50%) translateY(10px);
   }
+
   100% {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
@@ -757,10 +950,13 @@ body {
 }
 
 @keyframes outerDirectionPulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.42;
     transform: translateY(-50%) scale(1);
   }
+
   50% {
     opacity: 1;
     transform: translateY(-50%) scale(1.12);
@@ -772,18 +968,196 @@ body {
 }
 
 @keyframes innerExitPulse {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1);
-    box-shadow: 0 0 20px rgba(102,210,255,0.35), 0 0 40px rgba(0,150,255,0.2);
+    box-shadow: 0 0 20px rgba(102, 210, 255, 0.35), 0 0 40px rgba(0, 150, 255, 0.2);
   }
+
   50% {
     transform: scale(1.18);
-    box-shadow: 0 0 30px rgba(160,220,255,0.6), 0 0 65px rgba(80,170,255,0.35);
+    box-shadow: 0 0 30px rgba(160, 220, 255, 0.6), 0 0 65px rgba(80, 170, 255, 0.35);
   }
 }
 
 .inner-exit-pulse {
   animation: innerExitPulse 1s ease-in-out infinite;
+}
+
+/* ─── Family Tree: Falling Leaves ─── */
+
+@keyframes fallingLeaf {
+  0% {
+    transform: translateY(-5vh) translateX(0) rotate(var(--leaf-start, 0deg)) scale(0.7);
+    opacity: 0;
+  }
+
+  6% {
+    opacity: 0.7;
+  }
+
+  20% {
+    transform: translateY(18vh) translateX(25px) rotate(calc(var(--leaf-start, 0deg) + 35deg)) scale(1);
+  }
+
+  40% {
+    transform: translateY(38vh) translateX(-18px) rotate(calc(var(--leaf-start, 0deg) + 80deg)) scale(0.95);
+    opacity: 0.55;
+  }
+
+  60% {
+    transform: translateY(58vh) translateX(22px) rotate(calc(var(--leaf-start, 0deg) + 130deg)) scale(0.85);
+    opacity: 0.4;
+  }
+
+  80% {
+    transform: translateY(78vh) translateX(-12px) rotate(calc(var(--leaf-start, 0deg) + 165deg)) scale(0.7);
+    opacity: 0.25;
+  }
+
+  100% {
+    transform: translateY(105vh) translateX(8px) rotate(calc(var(--leaf-start, 0deg) + 200deg)) scale(0.5);
+    opacity: 0;
+  }
+}
+
+.falling-leaf {
+  --leaf-start: 0deg;
+  animation: fallingLeaf var(--leaf-duration, 12s) ease-in-out infinite;
+  animation-delay: var(--leaf-delay, 0s);
+  will-change: transform, opacity;
+}
+
+/* Gold leaf shimmer */
+@keyframes goldLeafShimmer {
+
+  0%,
+  100% {
+    filter: drop-shadow(0 0 4px rgba(218, 165, 32, 0.4));
+    transform: translateY(-5vh) translateX(0) rotate(var(--leaf-start, 0deg)) scale(0.85);
+    opacity: 0;
+  }
+
+  6% {
+    opacity: 0.9;
+  }
+
+  20% {
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.7));
+    transform: translateY(18vh) translateX(25px) rotate(calc(var(--leaf-start, 0deg) + 35deg)) scale(1.15);
+  }
+
+  40% {
+    filter: drop-shadow(0 0 6px rgba(218, 165, 32, 0.5));
+    transform: translateY(38vh) translateX(-18px) rotate(calc(var(--leaf-start, 0deg) + 80deg)) scale(1.1);
+    opacity: 0.85;
+  }
+
+  60% {
+    filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.8));
+    transform: translateY(58vh) translateX(22px) rotate(calc(var(--leaf-start, 0deg) + 130deg)) scale(1.05);
+    opacity: 0.75;
+  }
+
+  80% {
+    filter: drop-shadow(0 0 8px rgba(218, 165, 32, 0.6));
+    transform: translateY(78vh) translateX(-12px) rotate(calc(var(--leaf-start, 0deg) + 165deg)) scale(0.95);
+    opacity: 0.6;
+  }
+
+  100% {
+    filter: drop-shadow(0 0 4px rgba(218, 165, 32, 0.4));
+    transform: translateY(105vh) translateX(8px) rotate(calc(var(--leaf-start, 0deg) + 200deg)) scale(0.7);
+    opacity: 0;
+  }
+}
+
+.gold-leaf {
+  --leaf-start: 0deg;
+  animation: goldLeafShimmer var(--leaf-duration, 14s) ease-in-out infinite;
+  animation-delay: var(--leaf-delay, 0s);
+  will-change: transform, opacity, filter;
+  cursor: pointer;
+}
+
+.gold-leaf:hover {
+  filter: drop-shadow(0 0 18px rgba(255, 215, 0, 1)) !important;
+}
+
+/* Tree hollow golden glow pulse for completion */
+@keyframes treeHollowGlow {
+
+  0%,
+  100% {
+    filter: drop-shadow(0 0 15px rgba(218, 165, 32, 0.5)) drop-shadow(0 0 40px rgba(255, 200, 60, 0.2));
+    transform: scale(1);
+  }
+
+  50% {
+    filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8)) drop-shadow(0 0 70px rgba(255, 200, 60, 0.4));
+    transform: scale(1.04);
+  }
+}
+
+.tree-hollow-glow {
+  animation: treeHollowGlow 2.5s ease-in-out infinite;
+}
+
+/* Leaf-shaped overlay panel */
+.leaf-overlay-panel {
+  clip-path: path('M 50 2 C 65 2, 85 10, 94 25 C 100 35, 100 48, 98 58 C 95 72, 85 84, 72 92 C 62 97, 52 99, 50 99 C 48 99, 38 97, 28 92 C 15 84, 5 72, 2 58 C 0 48, 0 35, 6 25 C 15 10, 35 2, 50 2 Z');
+  clip-path: polygon(50% 0%,
+      58% 2%,
+      68% 6%,
+      78% 13%,
+      86% 22%,
+      92% 33%,
+      96% 45%,
+      98% 55%,
+      97% 65%,
+      93% 75%,
+      86% 83%,
+      76% 90%,
+      65% 95%,
+      55% 98%,
+      50% 100%,
+      45% 98%,
+      35% 95%,
+      24% 90%,
+      14% 83%,
+      7% 75%,
+      3% 65%,
+      2% 55%,
+      4% 45%,
+      8% 33%,
+      14% 22%,
+      22% 13%,
+      32% 6%,
+      42% 2%);
+  /* Use percentage-based padding carefully mapped to the polygon's "safe zone" to avoid text getting chopped at the corners */
+  padding: clamp(60px, 12%, 140px) clamp(50px, 16%, 150px) !important;
+  /* Ensure the child scrollbar avoids the jagged edges */
+  box-sizing: border-box;
+}
+
+/* Family tree node entrance animation */
+@keyframes familyTreeNodeAppear {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.85);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.family-tree-node {
+  animation: familyTreeNodeAppear 0.6s ease forwards;
+  animation-delay: var(--delay, 0ms);
+  opacity: 0;
 }
 
 /* ─── Mobile-first responsive adjustments ─── */
@@ -804,6 +1178,7 @@ body {
 }
 
 @media (max-width: 480px) {
+
   /* Ensure overlays use full width on very small screens */
   .overlay-backdrop {
     padding: 8px;

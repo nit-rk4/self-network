@@ -1,25 +1,25 @@
 import NodeOverlay from "./NodeOverlay";
+import diannePhoto from "../../assets/dianne.jpg";
 
 const ATE_DIANNE_COLOR = "140,220,190";
 
 export default function AteDianneOverlay({ onClose }) {
   return (
-    <NodeOverlay title="ATE DIANNE" onClose={onClose} color={ATE_DIANNE_COLOR}>
+    <NodeOverlay title="ATE DIANNE" onClose={onClose} color={ATE_DIANNE_COLOR} leafShaped>
       <div
         style={{
           display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          gap: "clamp(16px, calc(12px + 1.3vw), 52px)",
-          height: "100%",
-          minHeight: 0,
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "clamp(20px, calc(15px + 1.5vw), 40px)",
+          paddingBottom: "20px",
         }}
       >
         {/* Left side - Photo placeholder */}
         <div
           style={{
-            flex: "1 1 clamp(180px, 40%, 300px)",
-            minWidth: "min(180px, 100%)",
+            flex: "0 0 auto",
+            width: "clamp(140px, 50%, 250px)",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -30,7 +30,6 @@ export default function AteDianneOverlay({ onClose }) {
             style={{
               width: "100%",
               aspectRatio: "3 / 4",
-              maxHeight: "clamp(200px, 40vh, 480px)",
               border: `1px solid rgba(${ATE_DIANNE_COLOR},0.2)`,
               borderRadius: 12,
               background: `rgba(${ATE_DIANNE_COLOR},0.03)`,
@@ -40,28 +39,18 @@ export default function AteDianneOverlay({ onClose }) {
               overflow: "hidden",
             }}
           >
-            <span
-              style={{
-                color: `rgba(${ATE_DIANNE_COLOR},0.3)`,
-                fontSize: "clamp(11px, calc(7px + 0.42vw), 22px)",
-                textAlign: "center",
-                padding: 16,
-              }}
-            >
-              [ photo ]
-            </span>
+            <img src={diannePhoto} alt="Ate Dianne" style={{width: '100%', height: '100%', objectFit: 'cover'}}/>
           </div>
         </div>
 
         {/* Right side - Description */}
         <div
           style={{
-            flex: "1 1 clamp(200px, 50%, 400px)",
-            minWidth: "min(200px, 100%)",
             display: "flex",
             flexDirection: "column",
+            alignItems: "center",
+            textAlign: "center",
             gap: "clamp(14px, calc(10px + 1vw), 38px)",
-            overflowY: "auto",
           }}
         >
           <div>

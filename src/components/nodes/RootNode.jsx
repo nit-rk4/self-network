@@ -1,12 +1,12 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { FiArrowLeft, FiHelpCircle } from "react-icons/fi";
 import InnerNetworkTemplate from "./InnerNetworkTemplate";
+import FamilyTreeNetwork from "./FamilyTreeNetwork";
 import SelfRootNode from "./SelfRootNode";
 import FriendsRootNode from "./FriendsRootNode";
 import FamilyRootNode from "./FamilyRootNode";
 import SignificantOtherRootNode from "./SignificantOtherRootNode";
 import AbyssDoor from "./AbyssDoor";
-import FamilyDoor from "./FamilyDoor";
 import IdentityOverlay from "../overlays/IdentityOverlay";
 import StrengthOverlay from "../overlays/StrengthOverlay";
 import ShadowOverlay from "../overlays/ShadowOverlay";
@@ -19,8 +19,10 @@ import AteDJOverlay from "../overlays/AteDJOverlay";
 import AteDianneOverlay from "../overlays/AteDianneOverlay";
 import FamilyCompleteOverlay from "../overlays/FamilyCompleteOverlay";
 import FamilyStoryOverlay from "../overlays/FamilyStoryOverlay";
+import GrandparentsOverlay from "../overlays/GrandparentsOverlay";
 import AbyssEntryOverlay from "../overlays/AbyssEntryOverlay";
 import GuideScreen from "../overlays/GuideScreen";
+import FamilyGuideScreen from "../overlays/FamilyGuideScreen";
 import NodeOverlay from "../overlays/NodeOverlay";
 import AbyssScreen from "../screens/AbyssScreen";
 
@@ -47,6 +49,7 @@ const relationshipRoots = [
       { label: "ATE MARIEL", color: "200,160,220" },
       { label: "ATE DJ", color: "255,160,140" },
       { label: "ATE DIANNE", color: "140,220,190" },
+      { label: "GRANDPARENTS", color: "180,155,120" },
     ],
   },
   {
@@ -92,6 +95,7 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
   const [showFamilyComplete, setShowFamilyComplete] = useState(false);
   const [familyCompleteShown, setFamilyCompleteShown] = useState(false);
   const [showFamilyStory, setShowFamilyStory] = useState(false);
+  const [goldLeafDiscovered, setGoldLeafDiscovered] = useState(false);
 
   const rootConfigs = {
     self: {
@@ -108,7 +112,7 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
     },
     family: {
       ...relationshipRoots[1],
-      showGuide: false,
+      showGuide: true,
       allowAbyss: false,
     },
     significantOther: {
@@ -184,13 +188,6 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
 
   const closeOverlay = () => {
     setActiveNode(null);
-    // Show family completion popup after closing the last family member overlay
-    if (isFamilyRoot && !familyCompleteShown) {
-      if (familyNodeLabels.every((l) => visitedFamilyNodes.has(l))) {
-        setTimeout(() => setShowFamilyComplete(true), 300);
-        setFamilyCompleteShown(true);
-      }
-    }
   };
 
   const handleAbyssEnter = useCallback(() => {
@@ -590,12 +587,25 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
               overflow: "visible",
             }}
           >
-            <InnerNetworkTemplate
-              nodes={currentRoot.innerNodes}
-              onNodeClick={handleNodeClick}
-              shadowRevealed={shadowRevealed}
-              showInsecurityWords={isSelfRoot}
-            />
+            {isFamilyRoot ? (
+              <FamilyTreeNetwork
+                nodes={currentRoot.innerNodes}
+                onNodeClick={handleNodeClick}
+                onGoldLeafClick={() => {
+                  setGoldLeafDiscovered(true);
+                  setShowFamilyStory(true);
+                }}
+                allVisited={allFamilyVisited}
+                onHollowClick={() => setShowFamilyComplete(true)}
+              />
+            ) : (
+              <InnerNetworkTemplate
+                nodes={currentRoot.innerNodes}
+                onNodeClick={handleNodeClick}
+                shadowRevealed={shadowRevealed}
+                showInsecurityWords={isSelfRoot}
+              />
+            )}
           </div>
         )}
       </div>
@@ -613,6 +623,7 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
       {isFamilyRoot && activeNode === "ATE MARIEL" && <AteMarielOverlay onClose={closeOverlay} />}
       {isFamilyRoot && activeNode === "ATE DJ" && <AteDJOverlay onClose={closeOverlay} />}
       {isFamilyRoot && activeNode === "ATE DIANNE" && <AteDianneOverlay onClose={closeOverlay} />}
+      {isFamilyRoot && activeNode === "GRANDPARENTS" && <GrandparentsOverlay onClose={closeOverlay} />}
 
       {!isSelfRoot && !isFamilyRoot && activeNode && (
         <NodeOverlay title={activeNode} onClose={closeOverlay}>
@@ -632,6 +643,13 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
 
       {/* Guide overlay */}
       {isSelfRoot && showGuide && <GuideScreen onClose={() => setShowGuide(false)} />}
+      {isFamilyRoot && showGuide && (
+        <FamilyGuideScreen
+          onClose={() => setShowGuide(false)}
+          hollowUnlocked={allFamilyVisited}
+          goldenLeafDiscovered={goldLeafDiscovered}
+        />
+      )}
 
       {showPostAbyssPopup && (
         <div className="overlay-backdrop" onClick={() => {
@@ -692,10 +710,7 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
         <FamilyCompleteOverlay onClose={() => setShowFamilyComplete(false)} />
       )}
 
-      {/* Family locked door - present throughout while in family inner network */}
-      {isFamilyRoot && expanded && !showFamilyStory && (
-        <FamilyDoor onClick={() => setShowFamilyStory(true)} />
-      )}
+      {/* Family locked door replaced by gold leaf in the tree */}
 
       {/* Family embarrassing story popup */}
       {showFamilyStory && (
