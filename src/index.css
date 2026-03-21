@@ -1202,3 +1202,49 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* ─── Friends Vine Network ─── */
+
+/* Leaf gentle sway */
+@keyframes leafSway {
+  0%, 100% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+}
+
+.friends-vine-leaf {
+  animation: leafSway 3.5s ease-in-out infinite;
+  animation-delay: var(--sway-delay, 0s);
+}
+
+/* Floating vine particles */
+@keyframes vineParticleFloat {
+  0% {
+    transform: translateY(0) translateX(0) scale(0.6);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.6;
+    transform: translateY(-8px) translateX(4px) scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: translateY(-20px) translateX(-6px) scale(0.85);
+  }
+  85% {
+    opacity: 0.5;
+    transform: translateY(-10px) translateX(8px) scale(0.95);
+  }
+  100% {
+    transform: translateY(0) translateX(0) scale(0.6);
+    opacity: 0;
+  }
+}
+
+.friends-vine-particle {
+  animation: vineParticleFloat 8s ease-in-out infinite;
+  will-change: transform, opacity;
+}

@@ -2,6 +2,7 @@ import { useState, useCallback, useRef, useEffect } from "react";
 import { FiArrowLeft, FiHelpCircle } from "react-icons/fi";
 import InnerNetworkTemplate from "./InnerNetworkTemplate";
 import FamilyTreeNetwork from "./FamilyTreeNetwork";
+import FriendsVineNetwork from "./FriendsVineNetwork";
 import SelfRootNode from "./SelfRootNode";
 import FriendsRootNode from "./FriendsRootNode";
 import FamilyRootNode from "./FamilyRootNode";
@@ -21,9 +22,14 @@ import AteDianneOverlay from "../overlays/AteDianneOverlay";
 import FamilyCompleteOverlay from "../overlays/FamilyCompleteOverlay";
 import FamilyStoryOverlay from "../overlays/FamilyStoryOverlay";
 import GrandparentsOverlay from "../overlays/GrandparentsOverlay";
+import FriendDetailOverlay from "../overlays/FriendDetailOverlay";
+import FriendshipListOverlay from "../overlays/FriendshipListOverlay";
+import FriendLetterOverlay from "../overlays/FriendLetterOverlay";
 import AbyssEntryOverlay from "../overlays/AbyssEntryOverlay";
 import GuideScreen from "../overlays/GuideScreen";
 import FamilyGuideScreen from "../overlays/FamilyGuideScreen";
+import FriendsGuideScreen from "../overlays/FriendsGuideScreen";
+import SignificantOtherGuideScreen from "../overlays/SignificantOtherGuideScreen";
 import NodeOverlay from "../overlays/NodeOverlay";
 import AbyssScreen from "../screens/AbyssScreen";
 
@@ -111,7 +117,7 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
     },
     friends: {
       ...relationshipRoots[0],
-      showGuide: false,
+      showGuide: true,
       allowAbyss: false,
     },
     family: {
@@ -121,15 +127,21 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
     },
     significantOther: {
       ...relationshipRoots[2],
-      showGuide: false,
+      showGuide: true,
       allowAbyss: false,
     },
   };
 
   const currentRoot = rootConfigs[activeRootKey] ?? rootConfigs.self;
   const isSelfRoot = activeRootKey === "self";
+  const isFriendsRoot = activeRootKey === "friends";
   const isFamilyRoot = activeRootKey === "family";
   const isSignificantOtherRoot = activeRootKey === "significantOther";
+
+  // Friends overlays
+  const [activeFriend, setActiveFriend] = useState(null);
+  const [showFriendshipList, setShowFriendshipList] = useState(false);
+  const [showFriendLetter, setShowFriendLetter] = useState(false);
 
   const allNodeLabels = childrenNodes.map((n) => n.label);
   const allVisited = allNodeLabels.length > 0 && allNodeLabels.every((l) => visitedNodes.has(l));
@@ -596,7 +608,13 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
               overflow: "visible",
             }}
           >
-            {isFamilyRoot ? (
+            {isFriendsRoot ? (
+              <FriendsVineNetwork
+                onFriendClick={(friend) => setActiveFriend(friend)}
+                onPaperLeafClick={() => setShowFriendshipList(true)}
+                onLetterLeafClick={() => setShowFriendLetter(true)}
+              />
+            ) : isFamilyRoot ? (
               <FamilyTreeNetwork
                 nodes={currentRoot.innerNodes}
                 onNodeClick={handleNodeClick}
@@ -828,14 +846,31 @@ export default function RootNode({ label, childrenNodes = [], outerBgGif, innerB
         </NodeOverlay>
       )}
 
+      {/* Friends overlays */}
+      {isFriendsRoot && activeFriend && (
+        <FriendDetailOverlay friend={activeFriend} onClose={() => setActiveFriend(null)} />
+      )}
+      {isFriendsRoot && showFriendshipList && (
+        <FriendshipListOverlay onClose={() => setShowFriendshipList(false)} />
+      )}
+      {isFriendsRoot && showFriendLetter && (
+        <FriendLetterOverlay onClose={() => setShowFriendLetter(false)} />
+      )}
+
       {/* Guide overlay */}
       {isSelfRoot && showGuide && <GuideScreen onClose={() => setShowGuide(false)} />}
+      {isFriendsRoot && showGuide && (
+        <FriendsGuideScreen onClose={() => setShowGuide(false)} />
+      )}
       {isFamilyRoot && showGuide && (
         <FamilyGuideScreen
           onClose={() => setShowGuide(false)}
           hollowUnlocked={allFamilyVisited}
           goldenLeafDiscovered={goldLeafDiscovered}
         />
+      )}
+      {isSignificantOtherRoot && showGuide && (
+        <SignificantOtherGuideScreen onClose={() => setShowGuide(false)} />
       )}
 
       {showPostAbyssPopup && (
